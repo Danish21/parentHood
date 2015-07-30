@@ -4,6 +4,9 @@ angular.module('appname.controllers',[])
         	logoutService.logout();
         };
  }])
+.controller('homeCtrl', ['$scope', 'logoutService','toastr','$location','$rootScope', function ($scope,logoutService,toastr,$location,$rootScope) {
+ 	
+ }])
 .controller('tempCtrl',['$scope', 'logginService', 'logoutService','toastr','$rootScope','$location', function($scope, logginService,logoutService,toastr,$rootScope,$location){
 	$scope.login = function () {
 		if ($scope.email && $scope.password) {
