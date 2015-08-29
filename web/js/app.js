@@ -2,13 +2,12 @@ angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', '
 	config(['$routeProvider', function($routeProvider){
 		'use strict';
 		$routeProvider.
-		 when('/', {title: 'Home', templateUrl: 'partials/home.html', navLocation: 'navHome', controller: 'homeCtrl'})
-		.when('/login', {title: 'Home', templateUrl: 'partials/login.html', navLocation: 'navLogin', controller: 'tempCtrl', resolve: {loginRedirect: loginRedirect }})
-		.when('/signup', {title: 'signup', templateUrl: 'partials/signup.html', navLocation: 'navSignup', controller: 'signupCtrl'})
-		.when('/profile', {title: 'Profile', templateUrl: 'partials/profile.html', navLocation: 'navProfile', controller: 'profileCtrl', resolve: {logincheck: checkLogin}})
+		 when('/login', {title: 'Home', templateUrl: 'partials/login.html', controller: 'tempCtrl', resolve: {loginRedirect: loginRedirect }})
+		.when('/signup', {title: 'signup', templateUrl: 'partials/signup.html', controller: 'signupCtrl'})
+		.when('/profile', {title: 'Profile', templateUrl: 'partials/profile.html', controller: 'profileCtrl', resolve: {logincheck: checkLogin}})
 		.otherwise({ redirectTo: '/login'});
 	}]).
-    run(['$rootScope', '$q', '$http', '$location', '$routeParams', function ($rootScope, $q, $http, $location, $routeParams) {
+    run(['$rootScope', '$q', '$http', function ($rootScope, $q, $http) {
 
     	var loginSetIntialData = function () {
 
@@ -24,14 +23,6 @@ angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', '
 				$rootScope.currentUser =undefined;
 			});
 		}();
-		$rootScope.$on('$routeChangeSuccess', function (scope, current, pre) {
-            //console.log('$routeChangeSuccess: ' + $location.path());
-            var path = $location.path();
-            path = path.substring(1, path.length);
-
-            // Set the current route path for current page tab highlighting
-            $rootScope.navLocation = current.$$route.navLocation;
-        });
 
     }]);
 
