@@ -5,11 +5,16 @@ I orginally created this kit to quickly create a mean stack web app to quickly l
 
 Usage:
 
-1) git clone https://github.com/Danish21/meanstarterkit.git <local folder name>
-2) cd <local folder name>
+1) git clone https://github.com/Danish21/meanstarterkit.git localfoldername
+
+2) cd localfoldername
+
 3) npm install
+
 4) cd web 
+
 5) bower install
+
 6) Enjoy!
 
 
