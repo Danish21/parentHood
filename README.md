@@ -12,22 +12,22 @@ Usage:
 
 5) sudo chown -R `id -un` /data/db (puts the right permissions on the directory)
 
-4) git clone https://github.com/Danish21/parentHood.git parentHood
+6) git clone https://github.com/Danish21/parentHood.git parentHood
 
-5) cd parentHood
+7) cd parentHood
 
-6) npm install
+8) npm install
 
-7) cd web 
+9) cd web 
 
-8) bower install
+10) bower install
 
-9) cd ..
+11) cd ..
 
-10) sudo mongod &
+12) sudo mongod &
 
-11) node server.js
+13) node server.js
 
-12) Go to localhost:3000 in your browser
+14) Go to localhost:3000 in your browser
 
 
