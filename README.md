@@ -23,8 +23,10 @@ Usage:
 
 9) cd ..
 
-10) node server.js
+10) sudo mongod &
 
-11) Go to localhost:3000 in your browser
+11) node server.js
+
+12) Go to localhost:3000 in your browser
 
 
