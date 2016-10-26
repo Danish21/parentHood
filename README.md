@@ -1,7 +1,4 @@
-# meanstarterkit
-A Mean Stack Starter kit with passport js login authentication
-
-I orginally created this kit to quickly create a mean stack web app to quickly launch an application that supports login so I can quickly focus on the main features of the web app. Open sourcing if is of use to anyone else or if anyone wants to learn from it.
+# How to start
 
 Usage:
 
@@ -11,9 +8,9 @@ Usage:
 
 3) brew install mongodb (if you do not already have it)
 
-4) git clone https://github.com/Danish21/meanstarterkit.git localfoldername
+4) git clone https://github.com/Danish21/parentHood.git parentHood
 
-5) cd localfoldername
+5) cd parentHood
 
 6) npm install
 
