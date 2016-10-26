@@ -5,16 +5,26 @@ I orginally created this kit to quickly create a mean stack web app to quickly l
 
 Usage:
 
-1) git clone https://github.com/Danish21/meanstarterkit.git localfoldername
+1) install homebrew (if you do not already have it)
 
-2) cd localfoldername
+2) brew install node (if you do not already have it)
 
-3) npm install
+3) brew install mongodb (if you do not already have it)
 
-4) cd web 
+4) git clone https://github.com/Danish21/meanstarterkit.git localfoldername
 
-5) bower install
+5) cd localfoldername
 
-6) Enjoy!
+6) npm install
+
+7) cd web 
+
+8) bower install
+
+9) cd ..
+
+10) node server.js
+
+11) Go to localhost:3000 in your browser
 
 
