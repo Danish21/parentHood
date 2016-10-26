@@ -8,6 +8,10 @@ Usage:
 
 3) brew install mongodb (if you do not already have it)
 
+4) mkdir -p /data/db (Creates a directory for Mongo data files)
+
+5) sudo chown -R `id -un` /data/db (puts the right permissions on the directory)
+
 4) git clone https://github.com/Danish21/parentHood.git parentHood
 
 5) cd parentHood
