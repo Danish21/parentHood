@@ -1,8 +1,14 @@
 angular.module('appname.controllers',[])
-.controller('BaseCtrl', ['$scope', 'logoutService','toastr','$location','$rootScope', function ($scope,logoutService,toastr,$location,$rootScope) {
+.controller('BaseCtrl', ['$scope', 'logoutService', 'categoryService',  function ($scope,logoutService, categoryService) {
         $scope.logout = function () {
         	logoutService.logout();
         };
+        $scope.categoryService = categoryService;
+        $scope.onSelect = function ($item, $model, $label) {
+		    console.log($item);
+		    console.log($model);
+		    console.log($label);
+		};
  }])
 .controller('tempCtrl',['$scope', 'logginService', 'logoutService','toastr','$rootScope','$location', function($scope, logginService,logoutService,toastr,$rootScope,$location){
 	$scope.login = function () {
@@ -10,7 +16,7 @@ angular.module('appname.controllers',[])
 			logginService.loggin($scope.email,$scope.password).then(function (result) {
 				if(result.status === 'OK'){
 					$rootScope.currentUser = result.user;
-					$location.path('/profile');
+					$location.path('/home');
 					toastr.success('Logged In');
 				}
 			});
@@ -31,7 +37,7 @@ angular.module('appname.controllers',[])
 			signupService.signup(data).then(function (result) {
 				if(result.status === 'OK'){
 					$rootScope.currentUser = result.user;
-					$location.path('/profile');
+					$location.path('/home');
 				}
 			});
 		} else {
@@ -40,7 +46,7 @@ angular.module('appname.controllers',[])
 	}
 	
 }])
-.controller('profileCtrl',['$scope','profileService','$rootScope', function($scope,profileService,$rootScope){
+.controller('homeCtrl',['$scope','profileService','$rootScope', '$uibModal', 'categoryService', function($scope, profileService, $rootScope, $uibModal, categoryService){
 	$scope.getuserinfo = function () {
 		profileService.getUserInfo().then(function (result) {
 			if(result.status === 'OK'){
@@ -48,5 +54,42 @@ angular.module('appname.controllers',[])
 			} 
 		});
 	};
+  	$scope.open = function () {
+		var modalInstance = $uibModal.open({
+			templateUrl: './partials/new-post.html',
+			controller: 'newPostCtrl',
+		}).result.then(function (newPost) {
+	      	categoryService.addPost(newPost);
+	    }, function () {
+	      	console.log('dismissed');
+	    });
+	};
+	$scope.categoryService = categoryService;
 	$scope.getuserinfo();
+}])
+.controller('newPostCtrl',['$scope', '$uibModalInstance', 'categoryService', function($scope, $uibModalInstance, categoryService){
+	$scope.categoryService = categoryService;
+	$scope.post = {
+		category: Object.keys(categoryService.getCategories())[0],
+	};
+
+	$scope.ok = function () {
+		$uibModalInstance.close($scope.post);
+	};
+
+	$scope.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+}])
+.controller('settingsCtrl',['$scope','userService', function($scope, userService){
+	$scope.userService = userService;
+	$scope.subs = angular.copy(userService.getSubscriptions());
+
+	$scope.save = function() {
+		userService.updateSubscriptions($scope.subs);
+		$scope.subs = angular.copy(userService.getSubscriptions());
+	};
+	$scope.cancel = function() {
+		$scope.subs = angular.copy(userService.getSubscriptions());
+	};
 }]);

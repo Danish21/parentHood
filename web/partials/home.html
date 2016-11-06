@@ -1,0 +1,90 @@
+<header class="image-bg-fluid-height">
+		<h1 class="white">Clarendon Hills</h1>
+</header>
+<div class="row">
+	<div class="col-sm-10 col-sm-offset-1">
+		<div class="alert alert-danger" role="alert">
+		  <a href="#" class="alert-link">Alert!</a>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-offset-1 col-sm-11">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="panel-success panel panel-default">
+				  <!-- Default panel contents -->
+					<div class="panel-heading">Events</div>
+					<div class="panel-body">
+					  <p>...</p>
+					</div>
+					  <!-- List group -->
+					<ul class="list-group">
+					   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Events']">
+					   		<span class="badge"><time am-time-ago="post.date"></time></span>
+					   		{{post.title}}
+					   	</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-5 col-sm-offset-1">
+				<div class="panel-info panel panel-default">
+				  <!-- Default panel contents -->
+					<div class="panel-heading">Events</div>
+					<div class="panel-body">
+					  <p>...</p>
+					</div>
+					  <!-- List group -->
+					<ul class="list-group">
+					   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Buy/Sell']">
+					   		<span class="badge"><time am-time-ago="post.date"></time></span>
+					   		{{post.title}}
+					   	</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="panel-warning panel panel-default">
+				  <!-- Default panel contents -->
+					<div class="panel-heading">Recommendations</div>
+					<div class="panel-body">
+					  <p>...</p>
+					</div>
+					  <!-- List group -->
+					<ul class="list-group">
+					   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Recommendations']">
+					   		<span class="badge"><time am-time-ago="post.date"></time></span>
+					   		{{post.title}}
+					   	</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-5 col-sm-offset-1">
+				<div class="panel-danger panel panel-default">
+				  <!-- Default panel contents -->
+					<div class="panel-heading">Inquires</div>
+					<div class="panel-body">
+					  <p>...</p>
+					</div>
+					  <!-- List group -->
+					<ul class="list-group">
+					   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Inquires']">
+					   		<span class="badge"><time am-time-ago="post.date"></time></span>
+					   		{{post.title}}
+					   	</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-sm-12 text-center new-post-section"> 
+	<button class="btn btn-primary btn-xl" ng-click="open()">New Post</button> 
+</div>
+
+
+
+<!--ng-class="{'col-sm-offset-2': $index%2 == 0, 'col-sm-offset-1': $index%2 == 1}" ng-repeat="category in categories"-->
+

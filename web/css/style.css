@@ -10,6 +10,9 @@ body{
 .whiteBackground{
     background-color: white;
 }
+.white {
+    color: white;
+}
 .appname-standard-border{
     border: 1px solid #e8e8e8;
 }
@@ -34,6 +37,67 @@ body{
 }
 .animate-view.ng-enter.ng-enter-active {
     opacity:1;
+}
+.navbar-default {
+    background-color: #66ffcc;
+}
+
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
+}
+
+.image-bg-fluid-height,
+.image-bg-fixed-height {
+    text-align: center;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    background-size: cover !important;
+    -o-background-size: cover !important;
+}
+
+header{
+    margin-bottom: 20px;
+}
+.navbar {
+    margin-bottom: -13px;
+}
+
+
+.image-bg-fluid-height {
+    background: url('../images/ClarendonHills.jpg') no-repeat center center scroll;
+    padding: 100px 0;
+}
+
+.img-center {
+    margin: 0 auto;
+}
+
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.btn-xl {
+    padding: 10px 60px;
+    font-size: 12px; //change this to your desired size
+    line-height: normal;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.new-post-section {
+    margin-top: 20px; 
+    margin-bottom: 30px;
+}
+
+.notifications {
+    margin-top: 30px;
 }
 
 

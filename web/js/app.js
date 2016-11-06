@@ -1,10 +1,11 @@
-angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', 'appname.services','ngAnimate','toastr']).
+angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', 'appname.services','ngAnimate','toastr', 'ui.bootstrap', 'angularMoment']).
 	config(['$routeProvider', function($routeProvider){
 		'use strict';
 		$routeProvider.
 		 when('/login', {title: 'Home', templateUrl: 'partials/login.html', controller: 'tempCtrl', resolve: {loginRedirect: loginRedirect }})
 		.when('/signup', {title: 'signup', templateUrl: 'partials/signup.html', controller: 'signupCtrl'})
-		.when('/profile', {title: 'Profile', templateUrl: 'partials/profile.html', controller: 'profileCtrl', resolve: {logincheck: checkLogin}})
+		.when('/home', {title: 'Home', templateUrl: 'partials/home.html', controller: 'homeCtrl', resolve: {logincheck: checkLogin}})
+		.when('/settings', {title: 'Settings', templateUrl: 'partials/settings.html', controller: 'settingsCtrl', resolve: {logincheck: checkLogin}})
 		.otherwise({ redirectTo: '/login'});
 	}]).
     run(['$rootScope', '$q', '$http', function ($rootScope, $q, $http) {
@@ -55,7 +56,7 @@ angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', '
 			if (user!=0) {
 				$rootScope.currentUser = user;
 				deffered.reject();
-				$location.url('/profile');
+				$location.url('/home');
 			} 
 			//User is not Authenticated
 			else {

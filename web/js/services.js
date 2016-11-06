@@ -67,4 +67,61 @@ angular.module('appname.services',[])
 			});
 		}
 	};
+})
+.factory('categoryService', function(){
+	var self = this;
+	var categories = {
+		'Events': [],
+		'Buy/Sell': [],
+		'Recommendation': [],
+		'Inquires':[],
+	};
+	return {
+		getCategories: function (data) {
+			return categories;
+		},
+		addPost: function (post) {
+			post.date = Date.now();
+			categories[post.category].push(post);
+		},
+		getAllPosts: function () {
+			var posts = [];
+			for (var key in categories) {
+			   	if (categories.hasOwnProperty(key)) {
+			   		posts = posts.concat(categories[key]);
+			   	}
+			}
+			return posts;
+		}
+	};
+})
+.factory('userService', function($rootScope, categoryService){
+	var times = ['RealTime', 'Daily', 'Twice Daily', 'Unsubscribe'];
+	var defaultSubs = {};
+	Object.keys(categoryService.getCategories()).forEach(function(category) {
+		defaultSubs[category] = 'RealTime';
+	});
+	return {
+		getSubscriptions: function (data) {
+			if ($rootScope.currentUser && $rootScope.currentUser.subs) {
+				return $rootScope.currentUser.subs;
+			} else {
+				return defaultSubs;
+			}
+		},
+		updateSubscriptions: function (update) {
+			var newSubs = {};
+			for (var key in update) {
+			   	if (update.hasOwnProperty(key)) {
+			   	  	if (update[key] !== 'Unsubscribe') {
+			   	  		newSubs[key] = update[key];
+			   	  	}
+			   	}
+			}
+			$rootScope.currentUser.subs = newSubs;
+		},
+		getTimes: function () {
+			return times;
+		}
+	};
 });
