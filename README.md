@@ -18,16 +18,10 @@ Usage:
 
 8) npm install
 
-9) cd web 
+9) cd ..
 
-10) bower install
+10) sudo mongod &
 
-11) cd ..
+11) node server.js
 
-12) sudo mongod &
-
-13) node server.js
-
-14) Go to localhost:3000 in your browser
-
-
+12) Go to localhost:3000 in your browser
