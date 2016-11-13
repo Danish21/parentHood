@@ -54,10 +54,30 @@ angular.module('appname.controllers',[])
 			} 
 		});
 	};
-  	$scope.open = function () {
+	$scope.openUserInfo = function (user) {
+		var modalInstance = $uibModal.open({
+			templateUrl: './partials/profile-modal.html',
+			controller: 'userProfileCtrl',
+			resolve: {
+				user: function () {
+					return user;
+				}
+			}
+		}).result.then(function (newPost) {
+	      	console.log("resolved");
+	    }, function () {
+	      	console.log('dismissed');
+	    });
+	};
+  	$scope.open = function (type) {
 		var modalInstance = $uibModal.open({
 			templateUrl: './partials/new-post.html',
 			controller: 'newPostCtrl',
+			resolve: {
+				postType: function () {
+					return type;
+				}
+			}
 		}).result.then(function (newPost) {
 	      	categoryService.addPost(newPost);
 	    }, function () {
@@ -67,10 +87,11 @@ angular.module('appname.controllers',[])
 	$scope.categoryService = categoryService;
 	$scope.getuserinfo();
 }])
-.controller('newPostCtrl',['$scope', '$uibModalInstance', 'categoryService', function($scope, $uibModalInstance, categoryService){
+.controller('newPostCtrl',['$rootScope', '$scope', '$uibModalInstance', 'categoryService', 'postType', function($rootScope, $scope, $uibModalInstance, categoryService, postType){
 	$scope.categoryService = categoryService;
 	$scope.post = {
-		category: Object.keys(categoryService.getCategories())[0],
+		category: (postType) ? postType : Object.keys(categoryService.getCategories())[0],
+		user: $rootScope.currentUser
 	};
 
 	$scope.ok = function () {
@@ -92,4 +113,16 @@ angular.module('appname.controllers',[])
 	$scope.cancel = function() {
 		$scope.subs = angular.copy(userService.getSubscriptions());
 	};
+}])
+.controller('userProfileCtrl',['$scope','$uibModalInstance', '$window', 'user', function($scope, $uibModalInstance, $window, user){
+	$scope.user = user;
+	console.log(user);
+
+	$scope.mail = function() {
+    	$window.open("mailto:"+ user.local.email + "?subject=" + "" +"&body="+ "","_self");
+	};
+
+	$scope.block = function() {
+		$uibModalInstance.dismiss('cancel');
+	}
 }]);

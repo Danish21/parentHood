@@ -71,10 +71,11 @@ angular.module('appname.services',[])
 .factory('categoryService', function(){
 	var self = this;
 	var categories = {
+		'Alerts' : [],
 		'Events': [],
 		'Buy/Sell': [],
-		'Recommendation': [],
-		'Inquires':[],
+		'Recommendations': [],
+		'Inquiries':[],
 	};
 	return {
 		getCategories: function (data) {
@@ -92,6 +93,10 @@ angular.module('appname.services',[])
 			   	}
 			}
 			return posts;
+		},
+		mostRecentAlert: function() {
+			var alerts = categories['Alerts'];
+			return (alerts && alerts.length > 0) ? alerts[alerts.length-1] : {}; 
 		}
 	};
 })
@@ -101,7 +106,17 @@ angular.module('appname.services',[])
 	Object.keys(categoryService.getCategories()).forEach(function(category) {
 		defaultSubs[category] = 'RealTime';
 	});
+	var allUsers = null;
 	return {
+		getAllUsers: function(data) {
+			if (allUsers) return allUsers
+			var url = "http://localhost:3000/getallusers";
+			return ulhttp.get(url,data).then(function (result) {
+				result = ulhttp.handleError(result);
+				allUsers = result.users;
+				return allUsers;
+			});
+		},
 		getSubscriptions: function (data) {
 			if ($rootScope.currentUser && $rootScope.currentUser.subs) {
 				return $rootScope.currentUser.subs;

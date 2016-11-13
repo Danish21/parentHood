@@ -7,11 +7,14 @@ html, body, h1, h2, h3, h4, h5 {
 body{
 	    background-color: #ececec;
 }
+.hand {
+    cursor: pointer;
+}
 .whiteBackground{
     background-color: white;
 }
 .white {
-    color: white;
+    color: white !important;
 }
 .appname-standard-border{
     border: 1px solid #e8e8e8;
@@ -22,6 +25,10 @@ body{
     padding-left: 30px;
     padding-right: 30px;
     background-color: white;
+}
+
+.alert-text {
+    margin-left: 15px;
 }
 
 .animate-view.ng-animate {
@@ -39,7 +46,16 @@ body{
     opacity:1;
 }
 .navbar-default {
-    background-color: #66ffcc;
+    background-color: #20c9ad;
+    color: white;
+}
+
+.width-xl {
+    width: 150%;
+}
+
+.text-xl {
+    font-size: 32px;
 }
 
 .card-columns {
@@ -67,6 +83,10 @@ header{
     margin-bottom: -13px;
 }
 
+.searchbar .dropdown-menu {
+    width: 81%;
+}
+
 
 .image-bg-fluid-height {
     background: url('../images/ClarendonHills.jpg') no-repeat center center scroll;
@@ -75,6 +95,10 @@ header{
 
 .img-center {
     margin: 0 auto;
+}
+
+.fade {
+    opacity: 0.8;
 }
 
 .container-full {
@@ -100,7 +124,84 @@ header{
     margin-top: 30px;
 }
 
+.fa-panel{
+    vertical-align: -50% !important;
+    cursor: pointer;
+}
 
+.panel-body .list-group-item {
+    border-left: none;
+    border-right: none;
+    z-index: 0;
+    border-radius: 0;
+}
+
+.panel-body .list-group-item:first-child {
+    border-top: none;
+}
+.panel-heading {
+    color: white !important;
+}
+
+.panel-heading h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+    width: 75%;
+    padding-top: 8px;
+}
+
+.events-panel-heading {
+    background-color: #9168b6 !important;
+}
+
+.buysell-panel-heading {
+    background-color: #00b8ec !important;
+}
+
+.recommendations-panel-heading {
+    background-color: #f1e648 !important;
+}
+
+.inquiries-panel-heading {
+    background-color: #ff5b9d !important;
+}
+
+.btn-primary {
+    background-color: #20c9ad !important;
+    border-color: #cdede7;
+}
+
+.alert-heading {
+    background-color: #ff0c31;
+}
+
+.notification-option {
+    background-color: #20c9ad !important;
+    color: white;
+    opacity: .8 !important;
+}
+
+.notification-button button {
+    margin-right: 40px;
+}
+.form-horizontal .control-label{
+    text-align:left;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    background-color: #20c9ad;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+    background-color: #20c9ad;
+}
+
+.grey-circle {
+    height: 100px;
+    width: 100px;
+}
 .navbar-inverse { background-color: #FFFFFF; padding-bottom: 5px; padding-right: 100px; margin:0px;}
 .navbar-inverse .navbar-nav>.active>a:hover,.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus { background-color: #FFFFFF; font-weight: bold;}
 .navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.open>a,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus { background-color: #FFF}

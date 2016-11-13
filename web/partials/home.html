@@ -1,46 +1,64 @@
 <header class="image-bg-fluid-height">
-		<h1 class="white">Clarendon Hills</h1>
+		<h1 class="white fade">Clarendon Hills</h1>
 </header>
-<div class="row">
-	<div class="col-sm-10 col-sm-offset-1">
-		<div class="alert alert-danger" role="alert">
-		  <a href="#" class="alert-link">Alert!</a>
-		</div>
-	</div>
-</div>
+
 <div class="row">
 	<div class="col-sm-offset-1 col-sm-11">
+		<div class="row">
+			<div class="col-sm-11">
+				<div class="alert alert-danger alert-heading" role="alert">
+			  		<a href="#" class="alert-link white">Alert!</a> 
+			  		<a class="alert-link white hand alert-text">{{categoryService.mostRecentAlert().title}}</a> 
+				  	<div class="pull-right">
+						<i class="fa fa-plus-circle fa-lg white hand" aria-hidden="true" ng-click="open('Alerts')"></i>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-sm-5">
 				<div class="panel-success panel panel-default">
 				  <!-- Default panel contents -->
-					<div class="panel-heading">Events</div>
+					<div class="panel-heading events-panel-heading">
+						<h3 class="panel-title pull-left">Events</h3>
+						<div class="pull-right">
+							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Events')"></i>
+						</div>
+        				<div class="clearfix"></div>
+					</div>
 					<div class="panel-body">
-					  <p>...</p>
+					  	<ul class="list-group">
+						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Events'] | orderBy:'-' | limitTo: 3">
+						   		<span class="badge"><time am-time-ago="post.date"></time></span>
+						   		
+						   		<b>{{post.title}}</b>
+						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
+				
+						   	</li>
+						</ul>
 					</div>
 					  <!-- List group -->
-					<ul class="list-group">
-					   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Events']">
-					   		<span class="badge"><time am-time-ago="post.date"></time></span>
-					   		{{post.title}}
-					   	</li>
-					</ul>
 				</div>
 			</div>
 			<div class="col-sm-5 col-sm-offset-1">
 				<div class="panel-info panel panel-default">
 				  <!-- Default panel contents -->
-					<div class="panel-heading">Events</div>
-					<div class="panel-body">
-					  <p>...</p>
+					<div class="panel-heading buysell-panel-heading">
+						<h3 class="panel-title pull-left">Buy/Sell</h3>
+						<div class="pull-right">
+							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Buy/Sell')"></i>
+						</div>
+        				<div class="clearfix"></div>
 					</div>
-					  <!-- List group -->
-					<ul class="list-group">
-					   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Buy/Sell']">
-					   		<span class="badge"><time am-time-ago="post.date"></time></span>
-					   		{{post.title}}
-					   	</li>
-					</ul>
+					<div class="panel-body">
+					  	<ul class="list-group">
+						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Buy/Sell'] | orderBy:'-' | limitTo: 3">
+						   		<span class="badge"><time am-time-ago="post.date"></time></span>
+						   		{{post.title}}
+						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
+						   	</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -48,33 +66,47 @@
 			<div class="col-sm-5">
 				<div class="panel-warning panel panel-default">
 				  <!-- Default panel contents -->
-					<div class="panel-heading">Recommendations</div>
-					<div class="panel-body">
-					  <p>...</p>
+					<div class="panel-heading recommendations-panel-heading">
+						<h3 class="panel-title pull-left">Recommendations</h3>
+						<div class="pull-right">
+							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Recommendations')"></i>
+						</div>
+        				<div class="clearfix"></div>
 					</div>
-					  <!-- List group -->
-					<ul class="list-group">
-					   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Recommendations']">
-					   		<span class="badge"><time am-time-ago="post.date"></time></span>
-					   		{{post.title}}
-					   	</li>
-					</ul>
+					<div class="panel-body">
+					  	<!-- List group -->
+						<ul class="list-group">
+						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Recommendations'] | orderBy:'-' | limitTo: 3">
+						   		<span class="badge"><time am-time-ago="post.date"></time></span>
+						   		{{post.title}}
+						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
+						   	</li>
+						</ul>
+					</div>
+					  
 				</div>
 			</div>
 			<div class="col-sm-5 col-sm-offset-1">
 				<div class="panel-danger panel panel-default">
 				  <!-- Default panel contents -->
-					<div class="panel-heading">Inquires</div>
-					<div class="panel-body">
-					  <p>...</p>
+					<div class="panel-heading inquiries-panel-heading">
+						<h3 class="panel-title pull-left">Inquiries</h3>
+						<div class="pull-right">
+							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Inquiries')"></i>
+						</div>
+        				<div class="clearfix"></div>
 					</div>
-					  <!-- List group -->
-					<ul class="list-group">
-					   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Inquires']">
-					   		<span class="badge"><time am-time-ago="post.date"></time></span>
-					   		{{post.title}}
-					   	</li>
-					</ul>
+					<div class="panel-body">
+					  	<!-- List group -->
+						<ul class="list-group">
+						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Inquiries'] | orderBy:'-' | limitTo: 3">
+						   		<span class="badge"><time am-time-ago="post.date"></time></span>
+						   		{{post.title}}
+						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
+						   	</li>
+						</ul>
+					</div>
+					  
 				</div>
 			</div>
 		</div>
@@ -83,8 +115,3 @@
 <div class="col-sm-12 text-center new-post-section"> 
 	<button class="btn btn-primary btn-xl" ng-click="open()">New Post</button> 
 </div>
-
-
-
-<!--ng-class="{'col-sm-offset-2': $index%2 == 0, 'col-sm-offset-1': $index%2 == 1}" ng-repeat="category in categories"-->
-

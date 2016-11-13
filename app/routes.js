@@ -92,6 +92,20 @@ var user       = require('../app/models/user');
                 }
             });
         })
+        app.get('/getallusers', isLoggedIn, function (req,res) {
+            user.find({}, function (error,users) {
+                var response = {};
+                if (!error) {
+                    response.status = 'OK';
+                    response.users = users
+                    res.json(200,response);
+                } else {
+                    response.status = 'ERROR';
+                    response.message = 'Something Went Wrong';
+                    res.json(200,response);
+                }
+            });
+        })
 };
 
 // route middleware to ensure user is logged in

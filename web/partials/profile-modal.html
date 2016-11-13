@@ -1,0 +1,23 @@
+<div class="modal-body text-center" id="modal-body-{{name}}">
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-3">
+			<img src="../images/grey-circle.png" class="grey-circle" />
+			<h3><b>{{user.firstName}} {{user.lastName}} </b><h3>
+			<h4>Clarendon Hills, IL</h4>
+			<hr>
+			<h6>
+				<span class="pull-left">Email</span> 
+				<span class="pull-right">{{user.local.email}}</span>
+			</h6>
+			<br>
+			<h6>
+				<span class="pull-left">Phone</span> 
+				<span class="pull-right">Not specified</span>
+			</h6>
+			<br>
+			<br>
+			<button href="mailto:name@rapidtables.com"class="btn btn-primary pull-left" type="submit" ng-click="mail()">Email</button>
+    		<button class="btn btn-danger pull-right" type="button" ng-click="block()">Block</button>
+		</div>
+	</div>
+</div>
