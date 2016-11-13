@@ -68,7 +68,7 @@ angular.module('appname.services',[])
 		}
 	};
 })
-.factory('categoryService', function(){
+.factory('categoryService', function(ulhttp){
 	var self = this;
 	var categories = {
 		'Alerts' : [],
@@ -77,13 +77,33 @@ angular.module('appname.services',[])
 		'Recommendations': [],
 		'Inquiries':[],
 	};
-	return {
+	var filterByCat = function (cat, post) {
+		return post.category === cat;
+	}
+	var service = {
 		getCategories: function (data) {
 			return categories;
 		},
+		refreshData: function () {
+			var url = "/api/posts";
+			return ulhttp.get(url,{}).then(function (result) {
+				posts = ulhttp.handleError(result).posts;
+				categories = {
+					'Alerts' : posts.filter(filterByCat.bind(this, 'Alerts')),
+					'Events': posts.filter(filterByCat.bind(this, 'Events')),
+					'Buy/Sell': posts.filter(filterByCat.bind(this, 'Buy/Sell')),
+					'Recommendations': posts.filter(filterByCat.bind(this, 'Recommendations')),
+					'Inquiries': posts.filter(filterByCat.bind(this, 'Inquiries')),
+				};
+				return posts;
+			});
+		},
 		addPost: function (post) {
-			post.date = Date.now();
-			categories[post.category].push(post);
+			var url = "/api/posts";
+			return ulhttp.post(url, post).then(function (result) {
+				result = ulhttp.handleError(result);
+				return service.refreshData();
+			});
 		},
 		getAllPosts: function () {
 			var posts = [];
@@ -99,6 +119,7 @@ angular.module('appname.services',[])
 			return (alerts && alerts.length > 0) ? alerts[alerts.length-1] : {}; 
 		}
 	};
+	return service;
 })
 .factory('userService', function($rootScope, categoryService){
 	var times = ['RealTime', 'Daily', 'Twice Daily', 'Unsubscribe'];
