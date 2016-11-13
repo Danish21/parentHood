@@ -19,7 +19,7 @@ angular.module('appname.services',[])
 .factory('logginService', function(ulhttp){
 	return {
 		loggin: function (email,password) {
-			var url = "http://localhost:3000/api/login";
+			var url = "/api/login";
 			var data = {
 				email: email,
 				password: password
@@ -34,7 +34,7 @@ angular.module('appname.services',[])
 .factory('logoutService', function(ulhttp,$rootScope,toastr, $location){
 	return {
 		logout: function (email,password) {
-			var url = "http://localhost:3000/api/logout";
+			var url = "/api/logout";
 			ulhttp.get(url).then(function (result) {
 				if(result.data.status === 'OK'){
 					toastr.success('Logged Out');
@@ -49,7 +49,7 @@ angular.module('appname.services',[])
 .factory('signupService', function(ulhttp){
 	return {
 		signup: function (data) {
-			var url = "http://localhost:3000/api/signup";
+			var url = "/api/signup";
 			return ulhttp.post(url,data).then(function (result) {
 				result = ulhttp.handleError(result);
 				return result;
@@ -60,7 +60,7 @@ angular.module('appname.services',[])
 .factory('profileService', function(ulhttp){
 	return {
 		getUserInfo: function (data) {
-			var url = "http://localhost:3000/getuserinfo";
+			var url = "/getuserinfo";
 			return ulhttp.get(url,data).then(function (result) {
 				result = ulhttp.handleError(result);
 				return result;
@@ -110,7 +110,7 @@ angular.module('appname.services',[])
 	return {
 		getAllUsers: function(data) {
 			if (allUsers) return allUsers
-			var url = "http://localhost:3000/getallusers";
+			var url = "/getallusers";
 			return ulhttp.get(url,data).then(function (result) {
 				result = ulhttp.handleError(result);
 				allUsers = result.users;
