@@ -103,16 +103,18 @@ angular.module('appname.controllers',[])
 		$uibModalInstance.dismiss('cancel');
 	};
 }])
-.controller('settingsCtrl',['$scope','userService', function($scope, userService){
+.controller('settingsCtrl',['$scope','userService', 'toastr', function($scope, userService, toastr) {
 	$scope.userService = userService;
 	$scope.subs = angular.copy(userService.getSubscriptions());
 
 	$scope.save = function() {
 		userService.updateSubscriptions($scope.subs);
 		$scope.subs = angular.copy(userService.getSubscriptions());
+		toastr.success('Notifications updated');
 	};
 	$scope.cancel = function() {
 		$scope.subs = angular.copy(userService.getSubscriptions());
+		toastr.warning('Update canceled');
 	};
 }])
 .controller('userProfileCtrl',['$scope','$uibModalInstance', '$window', 'user', function($scope, $uibModalInstance, $window, user){

@@ -127,20 +127,11 @@ angular.module('appname.services',[])
 	Object.keys(categoryService.getCategories()).forEach(function(category) {
 		defaultSubs[category] = 'RealTime';
 	});
-	var allUsers = null;
+	var subs = null;
 	return {
-		getAllUsers: function(data) {
-			if (allUsers) return allUsers
-			var url = "/getallusers";
-			return ulhttp.get(url,data).then(function (result) {
-				result = ulhttp.handleError(result);
-				allUsers = result.users;
-				return allUsers;
-			});
-		},
 		getSubscriptions: function (data) {
-			if ($rootScope.currentUser && $rootScope.currentUser.subs) {
-				return $rootScope.currentUser.subs;
+			if (subs) {
+				return subs;
 			} else {
 				return defaultSubs;
 			}
@@ -154,7 +145,7 @@ angular.module('appname.services',[])
 			   	  	}
 			   	}
 			}
-			$rootScope.currentUser.subs = newSubs;
+			subs = newSubs;
 		},
 		getTimes: function () {
 			return times;

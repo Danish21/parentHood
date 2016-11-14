@@ -1,6 +1,7 @@
 module.exports = function(app, passport) {
 var user       = require('../app/models/user');
 var postModel  = require('../app/models/post');
+var subscriptionModel = require('../app/models/subscription');
 
 // LOGOUT ==============================
     app.get('/api/logout', function(req, res) {
