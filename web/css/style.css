@@ -198,6 +198,10 @@ header{
     background-color: #20c9ad;
 }
 
+.alert-time {
+/*    margin-right: 20px !important;
+*/}
+
 .grey-circle {
     height: 100px;
     width: 100px;
