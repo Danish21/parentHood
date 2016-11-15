@@ -92,7 +92,7 @@ header{
 }
 
 .new-post-section {
-    margin-top: 20px; 
+    margin-top: 20px;
     margin-bottom: 30px;
 }
 
@@ -100,6 +100,9 @@ header{
     margin-top: 30px;
 }
 
+.panel-heading > a{
+  color: inherit;
+}
 
 .navbar-inverse { background-color: #FFFFFF; padding-bottom: 5px; padding-right: 100px; margin:0px;}
 .navbar-inverse .navbar-nav>.active>a:hover,.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus { background-color: #FFFFFF; font-weight: bold;}

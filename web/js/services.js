@@ -5,13 +5,13 @@ angular.module('appname.services',[])
 			result = result.data;
 			if(result.status!== 'OK'){
 				toastr.error(result.message);
-			} 
+			}
 			return result;
 		},
 		post: function (url, data) {
 			return $http.post(url,data);
 		},
-		get: function (url,data) { 
+		get: function (url,data) {
 			return $http.get(url, data);
 		}
 	};
@@ -74,7 +74,7 @@ angular.module('appname.services',[])
 		'Events': [],
 		'Buy/Sell': [],
 		'Recommendation': [],
-		'Inquires':[],
+		'Connections':[],
 	};
 	return {
 		getCategories: function (data) {
