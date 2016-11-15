@@ -19,7 +19,7 @@ angular.module('appname.services',[])
 .factory('logginService', function(ulhttp){
 	return {
 		loggin: function (email,password) {
-			var url = "http://localhost:3000/api/login";
+			var url = "/api/login";
 			var data = {
 				email: email,
 				password: password
@@ -34,7 +34,7 @@ angular.module('appname.services',[])
 .factory('logoutService', function(ulhttp,$rootScope,toastr, $location){
 	return {
 		logout: function (email,password) {
-			var url = "http://localhost:3000/api/logout";
+			var url = "/api/logout";
 			ulhttp.get(url).then(function (result) {
 				if(result.data.status === 'OK'){
 					toastr.success('Logged Out');
@@ -49,7 +49,7 @@ angular.module('appname.services',[])
 .factory('signupService', function(ulhttp){
 	return {
 		signup: function (data) {
-			var url = "http://localhost:3000/api/signup";
+			var url = "/api/signup";
 			return ulhttp.post(url,data).then(function (result) {
 				result = ulhttp.handleError(result);
 				return result;
@@ -60,7 +60,7 @@ angular.module('appname.services',[])
 .factory('profileService', function(ulhttp){
 	return {
 		getUserInfo: function (data) {
-			var url = "http://localhost:3000/getuserinfo";
+			var url = "/getuserinfo";
 			return ulhttp.get(url,data).then(function (result) {
 				result = ulhttp.handleError(result);
 				return result;
@@ -68,21 +68,42 @@ angular.module('appname.services',[])
 		}
 	};
 })
-.factory('categoryService', function(){
+.factory('categoryService', function(ulhttp){
 	var self = this;
 	var categories = {
+		'Alerts' : [],
 		'Events': [],
 		'Buy/Sell': [],
-		'Recommendation': [],
+		'Recommendations': [],
 		'Connections':[],
 	};
-	return {
+	var filterByCat = function (cat, post) {
+		return post.category === cat;
+	}
+	var service = {
 		getCategories: function (data) {
 			return categories;
 		},
+		refreshData: function () {
+			var url = "/api/posts";
+			return ulhttp.get(url,{}).then(function (result) {
+				posts = ulhttp.handleError(result).posts;
+				categories = {
+					'Alerts' : posts.filter(filterByCat.bind(this, 'Alerts')),
+					'Events': posts.filter(filterByCat.bind(this, 'Events')),
+					'Buy/Sell': posts.filter(filterByCat.bind(this, 'Buy/Sell')),
+					'Recommendations': posts.filter(filterByCat.bind(this, 'Recommendations')),
+					'Inquiries': posts.filter(filterByCat.bind(this, 'Inquiries')),
+				};
+				return posts;
+			});
+		},
 		addPost: function (post) {
-			post.date = Date.now();
-			categories[post.category].push(post);
+			var url = "/api/posts";
+			return ulhttp.post(url, post).then(function (result) {
+				result = ulhttp.handleError(result);
+				return service.refreshData();
+			});
 		},
 		getAllPosts: function () {
 			var posts = [];
@@ -92,8 +113,13 @@ angular.module('appname.services',[])
 			   	}
 			}
 			return posts;
+		},
+		mostRecentAlert: function() {
+			var alerts = categories['Alerts'];
+			return (alerts && alerts.length > 0) ? alerts[alerts.length-1] : {};
 		}
 	};
+	return service;
 })
 .factory('userService', function($rootScope, categoryService){
 	var times = ['RealTime', 'Daily', 'Twice Daily', 'Unsubscribe'];
@@ -101,10 +127,11 @@ angular.module('appname.services',[])
 	Object.keys(categoryService.getCategories()).forEach(function(category) {
 		defaultSubs[category] = 'RealTime';
 	});
+	var subs = null;
 	return {
 		getSubscriptions: function (data) {
-			if ($rootScope.currentUser && $rootScope.currentUser.subs) {
-				return $rootScope.currentUser.subs;
+			if (subs) {
+				return subs;
 			} else {
 				return defaultSubs;
 			}
@@ -118,7 +145,7 @@ angular.module('appname.services',[])
 			   	  	}
 			   	}
 			}
-			$rootScope.currentUser.subs = newSubs;
+			subs = newSubs;
 		},
 		getTimes: function () {
 			return times;

@@ -47,49 +47,84 @@ angular.module('appname.controllers',[])
 	
 }])
 .controller('homeCtrl',['$scope','profileService','$rootScope', '$uibModal', 'categoryService', function($scope, profileService, $rootScope, $uibModal, categoryService){
-	$scope.getuserinfo = function () {
-		profileService.getUserInfo().then(function (result) {
-			if(result.status === 'OK'){
-				$scope.user = result.user;
-			} 
+	$scope.init = function () {
+		categoryService.refreshData().then(function (result) {
 		});
 	};
-  	$scope.open = function () {
+
+	$scope.openUserInfo = function (user) {
 		var modalInstance = $uibModal.open({
-			templateUrl: './partials/new-post.html',
-			controller: 'newPostCtrl',
+			templateUrl: './partials/profile-modal.html',
+			controller: 'userProfileCtrl',
+			resolve: {
+				user: function () {
+					return user;
+				}
+			}
 		}).result.then(function (newPost) {
-	      	categoryService.addPost(newPost);
+	      	console.log("resolved");
 	    }, function () {
 	      	console.log('dismissed');
 	    });
 	};
+  	$scope.open = function (type) {
+		var modalInstance = $uibModal.open({
+			templateUrl: './partials/new-post.html',
+			controller: 'newPostCtrl',
+			resolve: {
+				postType: function () {
+					return type;
+				}
+			}
+		}).result.then(function (newPost) {
+			console.log('added post');
+	    }, function () {
+	      	console.log('dismissed');
+	    });
+	};
+
 	$scope.categoryService = categoryService;
-	$scope.getuserinfo();
+	$scope.init();
 }])
-.controller('newPostCtrl',['$scope', '$uibModalInstance', 'categoryService', function($scope, $uibModalInstance, categoryService){
+.controller('newPostCtrl',['$rootScope', '$scope', '$uibModalInstance', 'categoryService', 'postType', function($rootScope, $scope, $uibModalInstance, categoryService, postType){
 	$scope.categoryService = categoryService;
 	$scope.post = {
-		category: Object.keys(categoryService.getCategories())[0],
+		category: (postType) ? postType : Object.keys(categoryService.getCategories())[0],
+		user_id: $rootScope.currentUser._id,
 	};
 
 	$scope.ok = function () {
-		$uibModalInstance.close($scope.post);
+		categoryService.addPost($scope.post).then(function (result) {
+			$uibModalInstance.close('good');
+		});		
 	};
 
 	$scope.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
 	};
 }])
-.controller('settingsCtrl',['$scope','userService', function($scope, userService){
+.controller('settingsCtrl',['$scope','userService', 'toastr', function($scope, userService, toastr) {
 	$scope.userService = userService;
 	$scope.subs = angular.copy(userService.getSubscriptions());
 
 	$scope.save = function() {
 		userService.updateSubscriptions($scope.subs);
 		$scope.subs = angular.copy(userService.getSubscriptions());
+		toastr.success('Notifications updated');
 	};
 	$scope.cancel = function() {
 		$scope.subs = angular.copy(userService.getSubscriptions());
+		toastr.warning('Update canceled');
 	};
+}])
+.controller('userProfileCtrl',['$scope','$uibModalInstance', '$window', 'user', function($scope, $uibModalInstance, $window, user){
+	$scope.user = user;
+
+	$scope.mail = function() {
+    	$window.open("mailto:"+ user.local.email + "?subject=" + "" +"&body="+ "","_self");
+	};
+
+	$scope.block = function() {
+		$uibModalInstance.dismiss('cancel');
+	}
 }]);

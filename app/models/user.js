@@ -9,8 +9,8 @@ var userSchema = mongoose.Schema({
     local            : {
         email        : String,
         password     : String
-    }
-
+    },
+    subs: [String]
 });
 
 // generating a hash

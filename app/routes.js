@@ -1,5 +1,7 @@
 module.exports = function(app, passport) {
 var user       = require('../app/models/user');
+var postModel  = require('../app/models/post');
+var subscriptionModel = require('../app/models/subscription');
 
 // LOGOUT ==============================
     app.get('/api/logout', function(req, res) {
@@ -91,7 +93,42 @@ var user       = require('../app/models/user');
                     res.json(200,response);
                 }
             });
-        })
+        });
+
+        app.post('/api/posts', isLoggedIn, function (req, res) {
+            var post = new postModel();
+            post.title = req.body.title;
+            post.message = req.body.message;
+            post.user = req.body.user_id;
+            post.category = req.body.category;
+            post.save(function (error, post) {
+                var response = {};
+                if (!error) {
+                    response.status = 'OK';
+                    response.post = post;
+                    res.json(200,response);
+                } else {
+                    response.status = 'ERROR';
+                    response.message = 'Something Went Wrong';
+                    res.json(200,response);
+                }
+            });        
+        });
+
+        app.get('/api/posts', isLoggedIn, function (req, res) {
+            postModel.find({}).populate('user').exec(function (error, posts) {
+                var response = {};
+                if (!error) {
+                    response.status = 'OK';
+                    response.posts = posts;
+                    res.json(200, response);
+                } else {
+                    response.status = 'ERROR';
+                    response.message = 'Something Went Wrong';
+                    res.json(200, response);
+                }
+            });        
+        });
 };
 
 // route middleware to ensure user is logged in
