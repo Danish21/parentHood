@@ -251,15 +251,24 @@ a.no-style{
 .comment{
   list-style: none;
   min-height: 60px;
-  padding: 10px 0px;
+  padding: 20px 0px;
 }
 
-li.comment:not(:last-child){
+.comments .comment{
   border-bottom: 1px solid #ccc;
 }
 
-.comment .comment-pic{
+.comment-pic{
   float: left;
+}
+
+.new-comment{
+  list-style: none;
+}
+
+.new-comment-text{
+  float: right;
+  width: calc(100% - 60px);
 }
 
 .comment .comment-content{
