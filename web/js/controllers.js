@@ -121,6 +121,21 @@ angular.module('appname.controllers',[])
 	      	console.log('dismissed');
 	    });
 	};
+  $scope.open = function (type) {
+  var modalInstance = $uibModal.open({
+    templateUrl: './partials/new-post.html',
+    controller: 'newPostCtrl',
+    resolve: {
+      postType: function () {
+        return type;
+      }
+    }
+  }).result.then(function (newPost) {
+    console.log('added post');
+    }, function () {
+        console.log('dismissed');
+    });
+};
 
 	$scope.categoryService = categoryService;
   $scope.postService = postService;
