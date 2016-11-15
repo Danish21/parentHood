@@ -86,12 +86,24 @@ angular.module('appname.controllers',[])
 	$scope.categoryService = categoryService;
 	$scope.init();
 }])
-.controller('postsPageCtrl',['$scope','profileService','$rootScope', '$uibModal', 'categoryService', 'postService', function($scope, profileService, $rootScope, $uibModal, categoryService, postService){
+.controller('postsPageCtrl',['$scope', '$routeParams', 'profileService','$rootScope', '$uibModal', 'categoryService', 'postService', function($scope, $routeParams, profileService, $rootScope, $uibModal, categoryService, postService){
 	$scope.init = function () {
 		categoryService.refreshData().then(function (result) {
+      if($routeParams.id){
+        $scope.post = categoryService.getAllPosts().find(function(post){return post._id == $routeParams.id});
+        $scope.newComment = {
+          post_id: $scope.post._id,
+          user_id: $rootScope.currentUser._id
+        }
+
+        $scope.createNewComment = function (){
+          postService.addComment($scope.newComment)
+        }
+      }
 		});
     postService.refreshData().then(function (result) {
 		});
+
 	};
 
 	$scope.openUserInfo = function (user) {
@@ -105,21 +117,6 @@ angular.module('appname.controllers',[])
 			}
 		}).result.then(function (newPost) {
 	      	console.log("resolved");
-	    }, function () {
-	      	console.log('dismissed');
-	    });
-	};
-  	$scope.open = function (type) {
-		var modalInstance = $uibModal.open({
-			templateUrl: './partials/new-post.html',
-			controller: 'newPostCtrl',
-			resolve: {
-				postType: function () {
-					return type;
-				}
-			}
-		}).result.then(function (newPost) {
-			console.log('added post');
 	    }, function () {
 	      	console.log('dismissed');
 	    });

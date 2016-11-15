@@ -101,7 +101,7 @@
 						<ul class="list-group">
 						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Inquiries'] | orderBy:'-' | limitTo: 3">
 						   		<span class="badge"><time am-time-ago="post.date"></time></span>
-						   		<b class="hand">{{post.title}}</b>
+						   		<b><a class="no-style" href="/#/connection/{{post._id}}">{{post.title}}</a></b>
 						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
 						   	</li>
 						</ul>

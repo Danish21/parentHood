@@ -135,13 +135,20 @@ angular.module('appname.services',[])
       }
       return posts[postId] || [];
     },
+		addComment: function (comment) {
+			var url = "/api/comments";
+			return ulhttp.post(url, comment).then(function (result) {
+				result = ulhttp.handleError(result);
+				return service.refreshData();
+			});
+		},
 		refreshData: function () {
 			var url = "/api/comments";
 			return ulhttp.get(url,{}).then(function (result) {
 				comments = ulhttp.handleError(result).comments;
         posts = {};
         comments.forEach(function(c, i){
-          posts[c.post._id] = posts[c.post] || [];
+          posts[c.post._id] = posts[c.post._id] || [];
           posts[c.post._id].push(c);
         });
 				return comments;

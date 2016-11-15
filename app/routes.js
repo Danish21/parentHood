@@ -1,6 +1,7 @@
 module.exports = function(app, passport) {
 var user       = require('../app/models/user');
 var postModel  = require('../app/models/post');
+var commentModel  = require('../app/models/comment');
 var subscriptionModel = require('../app/models/subscription');
 
 // LOGOUT ==============================
@@ -22,8 +23,8 @@ var subscriptionModel = require('../app/models/subscription');
         app.post('/api/login', function handleLocalAuthentication(req, res, next) {//Utilizing custom callback to send json objects
             passport.authenticate('local-login', function(err, user, message) {
                 if (err){
-                    return next(err);   
-                } 
+                    return next(err);
+                }
                 var response = {};
                 if (!user) {
                     response.status = 'ERROR';
@@ -34,8 +35,8 @@ var subscriptionModel = require('../app/models/subscription');
                 // Manually establish the session...
                 req.login(user, function(err) {
                     if (err) {
-                        return next(err);  
-                    } 
+                        return next(err);
+                    }
                     response.status= 'OK';
                     response.user = user;
                     return res.json(200,response);
@@ -47,11 +48,11 @@ var subscriptionModel = require('../app/models/subscription');
         // SIGNUP =================================
         // process the signup form
         // app.post('/api/signup', passport.authenticate('local-signup'), function(req,res){
-        //     res.json(req.user); 
+        //     res.json(req.user);
         // });
         app.post('/api/signup', function handleLocalAuthentication(req, res, next) { //Utilizing custom callback to send json objects
             passport.authenticate('local-signup', function(err, user, message) {
-                if (err){ 
+                if (err){
                     return next(err);
                 }
                 var response = {};
@@ -77,10 +78,10 @@ var subscriptionModel = require('../app/models/subscription');
         });
 
 // =============================================================================
-// NORMAL ROUTES ===============================================================  
+// NORMAL ROUTES ===============================================================
 // =============================================================================
         app.get('/getuserinfo', isLoggedIn, function (req,res) {
-            var user_id = req.user._id; 
+            var user_id = req.user._id;
             user.findOne({_id: user_id}, function (error,user) {
                 var response = {};
                 if (!error) {
@@ -112,7 +113,27 @@ var subscriptionModel = require('../app/models/subscription');
                     response.message = 'Something Went Wrong';
                     res.json(200,response);
                 }
-            });        
+            });
+        });
+
+        app.post('/api/comments', isLoggedIn, function (req, res) {
+            var comment = new commentModel();
+            comment.title = "No Title";
+            comment.text = req.body.text;
+            comment.user = req.body.user_id;
+            comment.post = req.body.post_id;
+            comment.save(function (error, comment) {
+                var response = {};
+                if (!error) {
+                    response.status = 'OK';
+                    response.comment = comment;
+                    res.json(200,response);
+                } else {
+                    response.status = 'ERROR';
+                    response.message = 'Something Went Wrong';
+                    res.json(200,response);
+                }
+            });
         });
 
         app.get('/api/posts', isLoggedIn, function (req, res) {
@@ -127,8 +148,23 @@ var subscriptionModel = require('../app/models/subscription');
                     response.message = 'Something Went Wrong';
                     res.json(200, response);
                 }
-            });        
+            });
         });
+
+        app.get('/api/comments', isLoggedIn, function(req, res) {
+            commentModel.find({}).populate('user').populate('post').exec(function (error, comments) {
+              var response = {};
+              if (!error) {
+                  response.status = 'OK';
+                  response.comments = comments;
+                  res.json(200, response);
+              } else {
+                  response.status = 'ERROR';
+                  response.message = 'Something Went Wrong';
+                  res.json(200, response);
+              }
+            })
+        })
 };
 
 // route middleware to ensure user is logged in

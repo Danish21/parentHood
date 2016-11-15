@@ -238,10 +238,69 @@ header{
   cursor: pointer;
 }
 
+a.no-style{
+  color: inherit;
+}
+
+.post-message{
+  padding: 35px 0px;
+  font-size: 12pt;
+  border-bottom: 1px solid #ccc;
+}
+
+.comment{
+  list-style: none;
+  min-height: 60px;
+  padding: 10px 0px;
+}
+
+li.comment:not(:last-child){
+  border-bottom: 1px solid #ccc;
+}
+
+.comment .comment-pic{
+  float: left;
+}
+
+.comment .comment-content{
+  /*flo/at: right;*/
+  display: inline-block;
+  width: calc(100% - 60px);
+  padding: 0px 10px;
+}
+
+.comment .comment-content p{
+  font-size: 12pt;
+  margin-bottom: 2px;
+}
+
+.comment .comment-content span{
+  font-size: 8pt;
+  color: #666;
+}
+
+.new-comment button{
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.comments{
+  padding-left: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .grey-circle {
     height: 100px;
     width: 100px;
 }
+
+.grey-circle-sm {
+    height: 50px;
+    width: 50px;
+}
+
 .navbar-inverse { background-color: #FFFFFF; padding-bottom: 5px; padding-right: 100px; margin:0px;}
 .navbar-inverse .navbar-nav>.active>a:hover,.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus { background-color: #FFFFFF; font-weight: bold;}
 .navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.open>a,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover,.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus { background-color: #FFF}
