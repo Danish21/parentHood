@@ -44,7 +44,7 @@ angular.module('appname.controllers',[])
 			toastr.error('All fields are required');
 		}
 	}
-	
+
 }])
 .controller('homeCtrl',['$scope','profileService','$rootScope', '$uibModal', 'categoryService', function($scope, profileService, $rootScope, $uibModal, categoryService){
 	$scope.init = function () {
@@ -86,6 +86,49 @@ angular.module('appname.controllers',[])
 	$scope.categoryService = categoryService;
 	$scope.init();
 }])
+.controller('postsPageCtrl',['$scope','profileService','$rootScope', '$uibModal', 'categoryService', 'postService', function($scope, profileService, $rootScope, $uibModal, categoryService, postService){
+	$scope.init = function () {
+		categoryService.refreshData().then(function (result) {
+		});
+    postService.refreshData().then(function (result) {
+		});
+	};
+
+	$scope.openUserInfo = function (user) {
+		var modalInstance = $uibModal.open({
+			templateUrl: './partials/profile-modal.html',
+			controller: 'userProfileCtrl',
+			resolve: {
+				user: function () {
+					return user;
+				}
+			}
+		}).result.then(function (newPost) {
+	      	console.log("resolved");
+	    }, function () {
+	      	console.log('dismissed');
+	    });
+	};
+  	$scope.open = function (type) {
+		var modalInstance = $uibModal.open({
+			templateUrl: './partials/new-post.html',
+			controller: 'newPostCtrl',
+			resolve: {
+				postType: function () {
+					return type;
+				}
+			}
+		}).result.then(function (newPost) {
+			console.log('added post');
+	    }, function () {
+	      	console.log('dismissed');
+	    });
+	};
+
+	$scope.categoryService = categoryService;
+  $scope.postService = postService;
+	$scope.init();
+}])
 .controller('newPostCtrl',['$rootScope', '$scope', '$uibModalInstance', 'categoryService', 'postType', function($rootScope, $scope, $uibModalInstance, categoryService, postType){
 	$scope.categoryService = categoryService;
 	$scope.post = {
@@ -96,7 +139,7 @@ angular.module('appname.controllers',[])
 	$scope.ok = function () {
 		categoryService.addPost($scope.post).then(function (result) {
 			$uibModalInstance.close('good');
-		});		
+		});
 	};
 
 	$scope.cancel = function () {

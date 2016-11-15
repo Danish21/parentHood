@@ -121,6 +121,35 @@ angular.module('appname.services',[])
 	};
 	return service;
 })
+.factory('postService', function(ulhttp){
+	var self = this;
+  var comments = [];
+  var posts = {};
+	var service = {
+    getPosts: function (data) {
+			return posts;
+		},
+    getComments: function (postId){
+      if(!postId){
+        return comments;
+      }
+      return posts[postId] || [];
+    },
+		refreshData: function () {
+			var url = "/api/comments";
+			return ulhttp.get(url,{}).then(function (result) {
+				comments = ulhttp.handleError(result).comments;
+        posts = {};
+        comments.forEach(function(c, i){
+          posts[c.post._id] = posts[c.post] || [];
+          posts[c.post._id].push(c);
+        });
+				return comments;
+			});
+		}
+	};
+	return service;
+})
 .factory('userService', function($rootScope, categoryService){
 	var times = ['RealTime', 'Daily', 'Twice Daily', 'Unsubscribe'];
 	var defaultSubs = {};

@@ -1,6 +1,6 @@
 var express  = require('express');
 var app      = express();
-var port     = process.env.PORT || 3000;
+var port     = process.env.PORT || 5000;
 var mongoose = require('mongoose');
 var passport = require('passport');
 
@@ -26,7 +26,7 @@ app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secre
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-app.use(express.static(__dirname+ '/web')); 
+app.use(express.static(__dirname+ '/web'));
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 // launch ======================================================================
 app.listen(port);

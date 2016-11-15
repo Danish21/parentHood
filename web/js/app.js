@@ -5,7 +5,7 @@ angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', '
 		 when('/login', {title: 'Home', templateUrl: 'partials/login.html', controller: 'tempCtrl', resolve: {loginRedirect: loginRedirect }})
 		.when('/signup', {title: 'signup', templateUrl: 'partials/signup.html', controller: 'signupCtrl'})
 		.when('/home', {title: 'Home', templateUrl: 'partials/home.html', controller: 'homeCtrl', resolve: {logincheck: checkLogin}})
-		.when('/connections', {title: 'Connections', templateUrl: 'partials/connections.html', controller: 'homeCtrl', resolve: {logincheck: checkLogin}})
+		.when('/connections', {title: 'Connections', templateUrl: 'partials/connections.html', controller: 'postsPageCtrl', resolve: {logincheck: checkLogin}})
 		.when('/settings', {title: 'Settings', templateUrl: 'partials/settings.html', controller: 'settingsCtrl', resolve: {logincheck: checkLogin}})
 		.otherwise({ redirectTo: '/login'});
 	}]).

@@ -1,28 +1,30 @@
 <div class="row">
   <div class="col-sm-10 col-sm-offset-1">
-  	<div class="jumbotron">
+  	<div class="jumbotron page-header-container text-center">
       <h1 class="page-header">Connections</h1>
       <p class="page-header">Make posts to connect neighbor-to-neighbor</p>
   	</div>
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-10 col-sm-offset-1">
-    <ul class="posts">
-      <li class="post">
-        <h3>Post Title</h3>
-        <div class="row">
-          <span class="post-author col-sm-3">Author Name</span>
-          <span class="post-comments col-sm-6"># Comments</span>
-          <span class="post-time col-sm-2">Time</span>
-          <span class="post-fav col-sm-1">*</span>
-        </div>
-      </li>
-    </ul>
+  <div class="col-sm-10 col-sm-offset-1 posts-container">
+    <div class="col-sm-10 col-sm-offset-1">
+      <ul class="posts">
+        <li class="post" ng-repeat="post in categoryService.getCategories()['Inquiries'] | orderBy:'-'">
+          <h3>{{post.title}}</h3>
+          <div class="row">
+            <span class="post-author col-sm-3"><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></span>
+            <span class="post-comments col-sm-6">{{ postService.getComments(post._id).length }} Comments</span>
+            <span class="post-time col-sm-2 text-right"><time am-time-ago="post.date"></time></span>
+            <span class="post-fav col-sm-1 text-right">☆</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-12 text-center new-post-section">
+    	<button class="btn btn-primary btn-xl" ng-click="open('Inquiries')">New Post</button>
+    </div>
   </div>
-</div>
-<div class="col-sm-12 text-center new-post-section">
-	<button class="btn btn-primary btn-xl" ng-click="open()">New Post</button>
 </div>
 
 <!--ng-class="{'col-sm-offset-2': $index%2 == 0, 'col-sm-offset-1': $index%2 == 1}" ng-repeat="category in categories"-->
