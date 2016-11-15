@@ -8,7 +8,7 @@
 			<div class="col-sm-11">
 				<div class="alert alert-danger alert-heading" role="alert">
 			  		<a href="#" class="alert-link white">Alert!</a>
-			  		<a class="alert-link white hand alert-text">{{categoryService.mostRecentAlert().title}} </a>
+			  		<a class="alert-link white hand alert-text" href="/#/post/{{categoryService.mostRecentAlert()._id}}">{{categoryService.mostRecentAlert().title}} </a>
 				  	<div class="pull-right">
 				  		<span class="badge alert-time"><time am-time-ago="categoryService.mostRecentAlert().date"></time></span>
 						<i class="fa fa-plus-circle fa-lg white hand" aria-hidden="true" ng-click="open('Alerts')"></i>
@@ -32,7 +32,7 @@
 						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Events'] | orderBy:'-' | limitTo: 3">
 						   		<span class="badge"><time am-time-ago="post.date"></time></span>
 
-						   		<b class="hand">{{post.title}}</b>
+						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
 						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
 						   	</li>
 						</ul>
@@ -54,7 +54,7 @@
 					  	<ul class="list-group">
 						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Buy/Sell'] | orderBy:'-' | limitTo: 3">
 						   		<span class="badge"><time am-time-ago="post.date"></time></span>
-						   		<b class="hand">{{post.title}}</b>
+						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
 						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
 						   	</li>
 						</ul>
@@ -78,7 +78,7 @@
 						<ul class="list-group">
 						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Recommendations'] | orderBy:'-' | limitTo: 3">
 						   		<span class="badge"><time am-time-ago="post.date"></time></span>
-						   		<b class="hand">{{post.title}}</b>
+						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
 						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
 						   	</li>
 						</ul>
@@ -92,16 +92,16 @@
 					<div class="panel-heading inquiries-panel-heading">
 						<h3 class="panel-title pull-left hand"><a href="/#/connections">Connections</a></h3>
 						<div class="pull-right">
-							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Inquiries')"></i>
+							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Connections')"></i>
 						</div>
         				<div class="clearfix"></div>
 					</div>
 					<div class="panel-body">
 					  	<!-- List group -->
 						<ul class="list-group">
-						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Inquiries'] | orderBy:'-' | limitTo: 3">
+						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Connections'] | orderBy:'-' | limitTo: 3">
 						   		<span class="badge"><time am-time-ago="post.date"></time></span>
-						   		<b><a class="no-style" href="/#/connection/{{post._id}}">{{post.title}}</a></b>
+						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
 						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
 						   	</li>
 						</ul>

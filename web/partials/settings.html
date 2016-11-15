@@ -4,25 +4,30 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-offset-2 col-sm-4 notifications">
+	<div class="col-sm-offset-2 col-sm-8 notifications">
 		<div class="row">
 			<form class="form-horizontal" role="form">
 				<div ng-repeat="(key, val) in subs">
 					<div class="form-group">
-						<label for="notification{{$index}}" class="col-sm-4 control-label pull-left">{{key}}</label>
-						 <div class="col-sm-6 pull-right">
-						 	<select class="form-control notification-option selectpicker" data-style="btn-primary" id="notification{{$index}}" ng-model="subs[key]">
+						<label for="notification{{$index}}" class="col-sm-2 control-label pull-left">{{key}}</label>
+						<div class="col-sm-3">
+						 	<select class="form-control notification-option selectpicker pull-right" data-style="btn-primary" id="notification{{$index}}" ng-model="subs[key]">
 							    <option ng-repeat="time in userService.getTimes()">{{time}}</option>
 						    </select>
-						 
-						 </div>
+						</div>
+						<div class="col-sm-4" ng-show="$index === 0">
+							    <label for="text" class="label-checkbox">Subscribe to text notifications</label>
+								<input type="checkbox" ng-model="text.val" ng-show="$index === 0" id="text" class="pull-left">
+						</div>
 					</div>
 				</div>
 			</form>
 		</div>
 		<div class="row text-center notification-button">
-			<button class="btn btn-primary" type="submit" ng-click="save()">Save</button>
-    		<button class="btn btn-secondary" type="button" ng-click="cancel()">Cancel</button>
+			<div class="col-sm-5">
+				<button class="btn btn-primary" type="submit" ng-click="save()">Save</button>
+	    		<button class="btn btn-secondary" type="button" ng-click="cancel()">Cancel</button>
+	    	</div>
 		</div>
 	</div>
 </div>

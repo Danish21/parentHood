@@ -93,7 +93,7 @@ angular.module('appname.services',[])
 					'Events': posts.filter(filterByCat.bind(this, 'Events')),
 					'Buy/Sell': posts.filter(filterByCat.bind(this, 'Buy/Sell')),
 					'Recommendations': posts.filter(filterByCat.bind(this, 'Recommendations')),
-					'Inquiries': posts.filter(filterByCat.bind(this, 'Inquiries')),
+					'Connections': posts.filter(filterByCat.bind(this, 'Connections')),
 				};
 				return posts;
 			});
@@ -164,6 +164,7 @@ angular.module('appname.services',[])
 		defaultSubs[category] = 'RealTime';
 	});
 	var subs = null;
+	var textNotification = false;
 	return {
 		getSubscriptions: function (data) {
 			if (subs) {
@@ -172,7 +173,7 @@ angular.module('appname.services',[])
 				return defaultSubs;
 			}
 		},
-		updateSubscriptions: function (update) {
+		updateSubscriptions: function (update, text) {
 			var newSubs = {};
 			for (var key in update) {
 			   	if (update.hasOwnProperty(key)) {
@@ -182,9 +183,13 @@ angular.module('appname.services',[])
 			   	}
 			}
 			subs = newSubs;
+			textNotification = text;
 		},
 		getTimes: function () {
 			return times;
+		},
+		getText: function () {
+			return textNotification;
 		}
 	};
 });

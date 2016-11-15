@@ -1,13 +1,11 @@
 angular.module('appname.controllers',[])
-.controller('BaseCtrl', ['$scope', 'logoutService', 'categoryService',  function ($scope,logoutService, categoryService) {
+.controller('BaseCtrl', ['$scope', 'logoutService', 'categoryService', '$location',  function ($scope,logoutService, categoryService, $location) {
         $scope.logout = function () {
         	logoutService.logout();
         };
         $scope.categoryService = categoryService;
         $scope.onSelect = function ($item, $model, $label) {
-		    console.log($item);
-		    console.log($model);
-		    console.log($label);
+		    $location.path('/post/' + $item._id);
 		};
  }])
 .controller('tempCtrl',['$scope', 'logginService', 'logoutService','toastr','$rootScope','$location', function($scope, logginService,logoutService,toastr,$rootScope,$location){
@@ -161,14 +159,24 @@ angular.module('appname.controllers',[])
 .controller('settingsCtrl',['$scope','userService', 'toastr', function($scope, userService, toastr) {
 	$scope.userService = userService;
 	$scope.subs = angular.copy(userService.getSubscriptions());
+	$scope.text = {
+		val: angular.copy(userService.getText())
+	}; 
 
 	$scope.save = function() {
-		userService.updateSubscriptions($scope.subs);
+		console.log($scope.textNotification);
+		userService.updateSubscriptions($scope.subs, $scope.text.val);
 		$scope.subs = angular.copy(userService.getSubscriptions());
+		$scope.text = {
+			val: angular.copy(userService.getText())
+		}; 
 		toastr.success('Notifications updated');
 	};
 	$scope.cancel = function() {
 		$scope.subs = angular.copy(userService.getSubscriptions());
+		$scope.text = {
+			val: angular.copy(userService.getText())
+		};
 		toastr.warning('Update canceled');
 	};
 }])

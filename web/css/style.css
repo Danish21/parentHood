@@ -155,24 +155,37 @@ header{
 .events-panel-heading {
     background-color: #9168b6 !important;
 }
-
+.purple {
+  background-color: #9168b6 !important;
+}
 .buysell-panel-heading {
     background-color: #00b8ec !important;
 }
-
+.blue {
+  background-color: #00b8ec !important;
+}
 .recommendations-panel-heading {
     background-color: #f1e648 !important;
 }
-
-.inquiries-panel-heading {
-    background-color: #ff5b9d !important;
+.yellow {
+  background-color: #f1e648 !important;
 }
-
+.inquiries-panel-heading {
+  background-color: #ff5b9d !important;
+}
+.pink {
+  background-color: #ff5b9d !important;
+}
+.red {
+  background-color: #ff0c31 !important;
+}
 .btn-primary {
     background-color: #20c9ad !important;
     border-color: #cdede7;
 }
-
+.label-checkbox {
+  margin-left: 5px;
+}
 .alert-heading {
     background-color: #ff0c31;
 }
