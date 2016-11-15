@@ -12,4 +12,4 @@ Usage:
 8. npm install
 9. sudo mongod &
 10. node server.js
-11. Go to localhost:3000 in your browser
+11. Go to localhost:5000 in your browser
