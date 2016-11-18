@@ -84,6 +84,22 @@ angular.module('appname.controllers',[])
 	$scope.categoryService = categoryService;
 	$scope.init();
 }])
+.controller('eventsCtrl',['$scope','profileService','$rootScope', '$uibModal', 'categoryService', function($scope, profileService, $rootScope, $uibModal, categoryService){
+	$scope.init = function () {
+		$scope.calendarView = 'month';
+		$scope.viewDate = new Date();
+		categoryService.refreshData().then(function (result) {
+			$scope.events = categoryService.getCategories()['Events'].map($scope.setStartAndEndtime);
+		});
+	};
+	$scope.setStartAndEndtime = function(event) {
+		event.startsAt = new Date(event.date);
+		return event;
+	};
+
+	$scope.categoryService = categoryService;
+	$scope.init();
+}])
 .controller('postsPageCtrl',['$scope', '$routeParams', 'profileService','$rootScope', '$uibModal', 'categoryService', 'postService', function($scope, $routeParams, profileService, $rootScope, $uibModal, categoryService, postService){
 	$scope.init = function () {
 		categoryService.refreshData().then(function (result) {

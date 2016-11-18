@@ -1,0 +1,39 @@
+
+<div class="col-sm-10 col-sm-offset-1">
+	<div class="row text-center">
+		<button
+		  class="btn btn-primary"
+		  mwl-date-modifier
+		  date="viewDate"
+		  decrement="calendarView">
+		  Previous
+		</button>
+
+		<button
+		  class="btn btn-default"
+		  mwl-date-modifier
+		  date="viewDate"
+		  set-to-today>
+		  Today
+		</button>
+
+		<button
+		  class="btn btn-primary"
+		  mwl-date-modifier
+		  date="viewDate"
+		  increment="calendarView">
+		  Next
+		</button>
+	</div>
+	<div class="row"> 
+		<mwl-calendar
+		    view="calendarView"
+		    view-date="viewDate"
+		    events="events"
+		    cell-is-open="true">
+		</mwl-calendar>
+	</div>
+</div>
+
+<!-- <calendar calendar-mode="mode" event-source="test">
+ --><!-- categoryService.getCategories()['Events'].map(setStartAndEndtime)-->

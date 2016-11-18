@@ -1,4 +1,4 @@
-angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', 'appname.services','ngAnimate','toastr', 'ui.bootstrap', 'angularMoment']).
+angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', 'appname.services','ngAnimate','toastr', 'ui.bootstrap', 'angularMoment', 'ui.rCalendar', 'mwl.calendar']).
 	config(['$routeProvider', function($routeProvider){
 		'use strict';
 		$routeProvider.
@@ -6,6 +6,7 @@ angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', '
 		.when('/signup', {title: 'signup', templateUrl: 'partials/signup.html', controller: 'signupCtrl'})
 		.when('/home', {title: 'Home', templateUrl: 'partials/home.html', controller: 'homeCtrl', resolve: {logincheck: checkLogin}})
 		.when('/connections', {title: 'Connections', templateUrl: 'partials/connections.html', controller: 'postsPageCtrl', resolve: {logincheck: checkLogin}})
+		.when('/events', {title: 'Events', templateUrl: 'partials/events.html', controller: 'eventsCtrl', resolve: {logincheck: checkLogin}})
 		.when('/post/:id', {title: 'Post', templateUrl: 'partials/connection.html', controller: 'postsPageCtrl', resolve: {logincheck: checkLogin}})
 		.when('/settings', {title: 'Settings', templateUrl: 'partials/settings.html', controller: 'settingsCtrl', resolve: {logincheck: checkLogin}})
 		.otherwise({ redirectTo: '/login'});
