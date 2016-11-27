@@ -3,6 +3,7 @@ var user       = require('../app/models/user');
 var postModel  = require('../app/models/post');
 var commentModel  = require('../app/models/comment');
 var subscriptionModel = require('../app/models/subscription');
+var savedPostModel = require('../app/models/savedpost');
 
 // LOGOUT ==============================
     app.get('/api/logout', function(req, res) {
@@ -165,6 +166,40 @@ var subscriptionModel = require('../app/models/subscription');
               }
             })
         })
+
+        app.get('/api/savedposts', isLoggedIn, function(req, res) {
+            var user_id = req.user._id;
+            savedPostModel.find({_id: user_id}).populate('post').exec(function (error, posts) {
+              var response = {};
+              if (!error) {
+                  response.status = 'OK';
+                  response.posts = posts;
+                  res.json(200, response);
+              } else {
+                  response.status = 'ERROR';
+                  response.message = 'Something Went Wrong';
+                  res.json(200, response);
+              }
+            })
+        });
+
+        app.post('/api/savedposts', isLoggedIn, function(req, res) {
+            var savedPost = new savedPostModel();
+            comment.user = req.user._id;
+            comment.post = req.body.post_id;
+            savedpost.save(function (error, savedpost) {
+                var response = {};
+                if (!error) {
+                    response.status = 'OK';
+                    response.savedpost = savedpost;
+                    res.json(200,response);
+                } else {
+                    response.status = 'ERROR';
+                    response.message = 'Something Went Wrong';
+                    res.json(200,response);
+                }
+            });
+        });
 };
 
 // route middleware to ensure user is logged in

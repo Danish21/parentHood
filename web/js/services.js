@@ -74,8 +74,8 @@ angular.module('appname.services',[])
 		'Alerts' : [],
 		'Events': [],
 		'Buy/Sell': [],
-		'Recommendations': [],
-		'Connections':[],
+		'The Local Pages': [],
+		'Ask the NeighborHood':[],
 	};
 	var filterByCat = function (cat, post) {
 		return post.category === cat;
@@ -92,8 +92,8 @@ angular.module('appname.services',[])
 					'Alerts' : posts.filter(filterByCat.bind(this, 'Alerts')),
 					'Events': posts.filter(filterByCat.bind(this, 'Events')),
 					'Buy/Sell': posts.filter(filterByCat.bind(this, 'Buy/Sell')),
-					'Recommendations': posts.filter(filterByCat.bind(this, 'Recommendations')),
-					'Connections': posts.filter(filterByCat.bind(this, 'Connections')),
+					'The Local Pages': posts.filter(filterByCat.bind(this, 'The Local Pages')),
+					'Ask the NeighborHood': posts.filter(filterByCat.bind(this, 'Ask the NeighborHood')),
 				};
 				return posts;
 			});

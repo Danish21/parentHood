@@ -103,21 +103,21 @@ angular.module('appname.controllers',[])
 .controller('postsPageCtrl',['$scope', '$routeParams', 'profileService','$rootScope', '$uibModal', 'categoryService', 'postService', function($scope, $routeParams, profileService, $rootScope, $uibModal, categoryService, postService){
 	$scope.init = function () {
 		categoryService.refreshData().then(function (result) {
-      if($routeParams.id){
-        $scope.post = categoryService.getAllPosts().find(function(post){return post._id == $routeParams.id});
-        $scope.newComment = {
-          post_id: $scope.post._id,
-          user_id: $rootScope.currentUser._id
-        }
-
-        $scope.createNewComment = function (){
-          postService.addComment($scope.newComment)
-        }
-      }
+	      if($routeParams.id){
+	        $scope.post = categoryService.getAllPosts().find(function(post){return post._id == $routeParams.id});
+	        $scope.newComment = {
+	          post_id: $scope.post._id,
+	          user_id: $rootScope.currentUser._id
+	        }
+	        $scope.createNewComment = function (){
+	          postService.addComment($scope.newComment);
+	          $scope.newComment.text = "";
+	        }
+	      }
 		});
-    postService.refreshData().then(function (result) {
+    	postService.refreshData().then(function (result) {
+			
 		});
-
 	};
 
 	$scope.openUserInfo = function (user) {

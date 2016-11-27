@@ -11,7 +11,9 @@
 			  		<a class="alert-link white hand alert-text" href="/#/post/{{categoryService.mostRecentAlert()._id}}">{{categoryService.mostRecentAlert().title}} </a>
 				  	<div class="pull-right">
 				  		<span class="badge alert-time"><time am-time-ago="categoryService.mostRecentAlert().date"></time></span>
-						<i class="fa fa-plus-circle fa-lg white hand" aria-hidden="true" ng-click="open('Alerts')"></i>
+						<i class="fa fa-plus-circle fa-lg white hand" aria-hidden="true" ng-click="open('Alerts')">
+							Add Alert
+						</i>
 					</div>
 				</div>
 			</div>
@@ -23,7 +25,9 @@
 					<div class="panel-heading events-panel-heading">
 						<h3 class="panel-title pull-left hand"><a href="/#/events">Events</a></h3>
 						<div class="pull-right">
-							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Events')"></i>
+							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Events')">
+								Add Post
+							</i>
 						</div>
         				<div class="clearfix"></div>
 					</div>
@@ -46,7 +50,9 @@
 					<div class="panel-heading buysell-panel-heading">
 						<h3 class="panel-title pull-left hand">Buy/Sell</h3>
 						<div class="pull-right">
-							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Buy/Sell')"></i>
+							 <i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Buy/Sell')">
+							 	Add Post
+							 </i>
 						</div>
         				<div class="clearfix"></div>
 					</div>
@@ -67,16 +73,18 @@
 				<div class="panel-warning panel panel-default">
 				  <!-- Default panel contents -->
 					<div class="panel-heading recommendations-panel-heading">
-						<h3 class="panel-title pull-left hand">Recommendations</h3>
+						<h3 class="panel-title pull-left hand">The Local Pages</h3>
 						<div class="pull-right">
-							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Recommendations')"></i>
+							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('The Local Pages')">
+								Add Post
+							</i>
 						</div>
         				<div class="clearfix"></div>
 					</div>
 					<div class="panel-body">
 					  	<!-- List group -->
 						<ul class="list-group">
-						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Recommendations'] | orderBy:'-' | limitTo: 3">
+						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['The Local Pages'] | orderBy:'-' | limitTo: 3">
 						   		<span class="badge"><time am-time-ago="post.date"></time></span>
 						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
 						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
@@ -90,16 +98,18 @@
 				<div class="panel-danger panel panel-default">
 				  <!-- Default panel contents -->
 					<div class="panel-heading inquiries-panel-heading">
-						<h3 class="panel-title pull-left hand"><a href="/#/connections">Connections</a></h3>
+						<h3 class="panel-title pull-left hand"><a href="/#/Ask the NeighborHood">Ask the NeighborHood</a></h3>
 						<div class="pull-right">
-							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Connections')"></i>
+							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Ask the NeighborHood')">
+								Add Post
+							</i>
 						</div>
         				<div class="clearfix"></div>
 					</div>
 					<div class="panel-body">
 					  	<!-- List group -->
 						<ul class="list-group">
-						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Connections'] | orderBy:'-' | limitTo: 3">
+						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Ask the NeighborHood'] | orderBy:'-' | limitTo: 3">
 						   		<span class="badge"><time am-time-ago="post.date"></time></span>
 						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
 						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
@@ -112,6 +122,6 @@
 		</div>
 	</div>
 </div>
-<div class="col-sm-12 text-center new-post-section">
+<!-- <div class="col-sm-12 text-center new-post-section">
 	<button class="btn btn-primary btn-xl" ng-click="open()">New Post</button>
-</div>
+</div> -->
