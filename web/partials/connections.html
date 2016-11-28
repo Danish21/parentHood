@@ -8,6 +8,9 @@
 </div>
 <div class="row">
   <div class="col-sm-10 col-sm-offset-1 posts-container">
+    <div class="col-sm-12 text-center new-post-section">
+    	<button class="btn btn-primary btn-xl" ng-click="open('Inquiries')">New Post</button>
+    </div>
     <div class="col-sm-10 col-sm-offset-1">
       <ul class="posts">
         <li class="post" ng-repeat="post in categoryService.getCategories()['Ask the NeighborHood'] | orderBy:'-'">
@@ -20,9 +23,6 @@
           </div>
         </li>
       </ul>
-    </div>
-    <div class="col-sm-12 text-center new-post-section">
-    	<button class="btn btn-primary btn-xl" ng-click="open('Inquiries')">New Post</button>
     </div>
   </div>
 </div>
