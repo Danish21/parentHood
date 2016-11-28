@@ -255,6 +255,18 @@ a.no-style{
   color: inherit;
 }
 
+a.no-underline{
+  text-decoration: inherit;
+}
+
+a.back-link{
+  position: absolute;
+  left: 0px;
+  transform: translateX(40%);
+  margin-top: -34px;
+  font-size: 1.4em;
+}
+
 .post-message{
   padding: 35px 0px;
   font-size: 12pt;

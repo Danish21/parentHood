@@ -13,10 +13,12 @@
     "angular-resource": "~1.4.0",
     "angular-route": "~1.4.0",
     "angular-toastr": "~1.4.1",
-    "angular-bootstrap": "~1.3.3"
+    "angular-bootstrap": "~1.3.3",
+    "ng-responsive-calendar": "^0.1.16",
+    "angular-bootstrap-calendar": "^0.27.1"
   },
   "resolutions": {
     "angular": ">=1.4.0",
-    "bootstrap": "~3.0.3"
+    "bootstrap": "^3.3.4"
   }
 }
