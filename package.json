@@ -1,6 +1,7 @@
 {
   "name": "mean-stack-starter-ki",
   "main": "server.js",
+  "version": "1.0.0",
   "dependencies": {
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.0",
