@@ -10,6 +10,5 @@ Usage:
 6. git clone https://github.com/Danish21/parentHood.git parentHood
 7. cd parentHood
 8. npm install
-9. sudo mongod &
-10. node server.js
-11. Go to localhost:5000 in your browser
+9. npm start
+10. Go to localhost:5000 in your browser
