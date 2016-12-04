@@ -6,6 +6,7 @@ angular.module('summerproject',['ngRoute', 'ngResource','appname.controllers', '
 		.when('/signup', {title: 'signup', templateUrl: 'partials/signup.html', controller: 'signupCtrl'})
 		.when('/home', {title: 'Home', templateUrl: 'partials/home.html', controller: 'homeCtrl', resolve: {logincheck: checkLogin}})
 		.when('/Ask the NeighborHood', {title: 'Ask the NeighborHood', templateUrl: 'partials/connections.html', controller: 'postsPageCtrl', resolve: {logincheck: checkLogin}})
+		.when('/saved_posts', {title: 'Saved Posts', templateUrl: 'partials/saved-posts.html', controller: 'savedPostsCtrl', resolve: {logincheck: checkLogin}})
 		.when('/events', {title: 'Events', templateUrl: 'partials/events.html', controller: 'eventsCtrl', resolve: {logincheck: checkLogin}})
 		.when('/post/:id', {title: 'Post', templateUrl: 'partials/connection.html', controller: 'postsPageCtrl', resolve: {logincheck: checkLogin}})
 		.when('/settings', {title: 'Settings', templateUrl: 'partials/settings.html', controller: 'settingsCtrl', resolve: {logincheck: checkLogin}})

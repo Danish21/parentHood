@@ -121,7 +121,7 @@ angular.module('appname.services',[])
 	};
 	return service;
 })
-.factory('postService', function(ulhttp){
+.factory('postService', function(ulhttp, toastr){
 	var self = this;
   var comments = [];
   var posts = {};
@@ -135,6 +135,22 @@ angular.module('appname.services',[])
       }
       return posts[postId] || [];
     },
+		savePost: function (post) {
+			var url = "/api/savedposts"
+			return ulhttp.post(url, post).then(function(result){
+				result = ulhttp.handleError(result);
+				toastr.success("Saved Post");
+				return service.refreshData();
+			})
+		},
+		unsavePost: function (post) {
+			var url = "/api/savedposts/delete"
+			return ulhttp.post(url, post).then(function(result){
+				result = ulhttp.handleError(result);
+				toastr.success("Un-Saved Post");
+				return service.refreshData();
+			})
+		},
 		addComment: function (comment) {
 			var url = "/api/comments";
 			return ulhttp.post(url, comment).then(function (result) {
@@ -152,6 +168,26 @@ angular.module('appname.services',[])
           posts[c.post._id].push(c);
         });
 				return comments;
+			});
+		}
+	};
+	return service;
+})
+.factory('savedPostsService', function(ulhttp){
+	var self = this;
+	var savedPosts = [];
+	var service = {
+    getPosts: function (data) {
+			return savedPosts;
+		},
+		isSaved: function (post){
+			return savedPosts.map(savedPost => savedPost.post._id).includes(post._id);
+		},
+		refreshData: function () {
+			var url = "/api/savedposts";
+			return ulhttp.get(url,{}).then(function (result) {
+				savedPosts = ulhttp.handleError(result).posts;
+				return savedPosts;
 			});
 		}
 	};

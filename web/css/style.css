@@ -125,6 +125,33 @@ header{
     margin-top: 30px;
 }
 
+.saved-posts {
+    margin-top: 30px;
+}
+
+.saved-post{
+    padding: 7px;
+    color: #fff;   
+}
+
+.delete-saved-post {
+    padding: 7px;
+}
+
+.delete-saved-post > span{
+    position: relative;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    line-height: 23px;
+    padding-right: 1px;
+    display: block;
+    background: #C8C8C8;
+    color: #fff;
+    text-align: center;
+    top: -2px;
+}
+
 .fa-panel{
     vertical-align: -50% !important;
     cursor: pointer;

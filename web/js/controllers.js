@@ -100,11 +100,13 @@ angular.module('appname.controllers',[])
 	$scope.categoryService = categoryService;
 	$scope.init();
 }])
-.controller('postsPageCtrl',['$scope', '$routeParams', 'profileService','$rootScope', '$uibModal', 'categoryService', 'postService', function($scope, $routeParams, profileService, $rootScope, $uibModal, categoryService, postService){
+.controller('postsPageCtrl',['$scope', '$routeParams', 'profileService','$rootScope', '$uibModal', 'categoryService', 'postService', 'savedPostsService', function($scope, $routeParams, profileService, $rootScope, $uibModal, categoryService, postService, savedPostsService){
+
 	$scope.init = function () {
 		categoryService.refreshData().then(function (result) {
 	      if($routeParams.id){
 	        $scope.post = categoryService.getAllPosts().find(function(post){return post._id == $routeParams.id});
+					$scope.post.saved = savedPostsService.isSaved($scope.post);
 	        $scope.newComment = {
 	          post_id: $scope.post._id,
 	          user_id: $rootScope.currentUser._id
@@ -115,26 +117,23 @@ angular.module('appname.controllers',[])
 	        }
 	      }
 		});
-    	postService.refreshData().then(function (result) {
+    postService.refreshData().then(function (result) {
 			
+		});
+		savedPostsService.refreshData().then(function (result) {
+			if($scope.post)
+				$scope.post.saved = savedPostsService.isSaved($scope.post);
 		});
 	};
 
-	$scope.openUserInfo = function (user) {
-		var modalInstance = $uibModal.open({
-			templateUrl: './partials/profile-modal.html',
-			controller: 'userProfileCtrl',
-			resolve: {
-				user: function () {
-					return user;
-				}
-			}
-		}).result.then(function (newPost) {
-	      	console.log("resolved");
-	    }, function () {
-	      	console.log('dismissed');
-	    });
-	};
+	$scope.savePost = function (post) {
+		return postService.savePost(post).then(() => $scope.init())
+	}
+
+	$scope.unsavePost = function (post) {
+		return postService.unsavePost(post).then(() => $scope.init())
+	}
+
   $scope.open = function (type) {
   var modalInstance = $uibModal.open({
     templateUrl: './partials/new-post.html',
@@ -151,8 +150,44 @@ angular.module('appname.controllers',[])
     });
 };
 
+	$scope.getPosts = function(category){
+		return categoryService.getCategories()[category].map(post  => Object.assign(post, { saved: savedPostsService.isSaved(post) }))
+	} 
+	
 	$scope.categoryService = categoryService;
   $scope.postService = postService;
+	$scope.init();
+}])
+.controller('savedPostsCtrl',['$scope', '$routeParams', '$rootScope', '$uibModal', 'postService', 'savedPostsService', function($scope, $routeParams, $rootScope, $uibModal, postService, savedPostsService){
+	$scope.init = function () {
+		savedPostsService.refreshData().then(function (result) {
+			$scope.savedPosts = result;
+		});
+	};
+
+	$scope.unsavePost = function (post) {
+		return postService.unsavePost(post).then(() => $scope.init())
+	}
+
+	// TODO: Update
+  $scope.open = function (type) {
+  var modalInstance = $uibModal.open({
+    templateUrl: './partials/new-post.html',
+    controller: 'newPostCtrl',
+    resolve: {
+      postType: function () {
+        return type;
+      }
+    }
+  }).result.then(function (newPost) {
+    		console.log('opened post');
+    }, function () {
+        console.log('dismissed');
+    });
+
+};
+
+	$scope.savedPostsService = savedPostsService;
 	$scope.init();
 }])
 .controller('newPostCtrl',['$rootScope', '$scope', '$uibModalInstance', 'categoryService', 'postType', function($rootScope, $scope, $uibModalInstance, categoryService, postType){

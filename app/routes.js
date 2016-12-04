@@ -169,10 +169,11 @@ var savedPostModel = require('../app/models/savedpost');
 
         app.get('/api/savedposts', isLoggedIn, function(req, res) {
             var user_id = req.user._id;
-            savedPostModel.find({_id: user_id}).populate('post').exec(function (error, posts) {
+            savedPostModel.find({user: { _id: user_id }} ).populate('post').exec(function (error, posts) {
               var response = {};
               if (!error) {
                   response.status = 'OK';
+                  console.log(posts);
                   response.posts = posts;
                   res.json(200, response);
               } else {
@@ -184,10 +185,20 @@ var savedPostModel = require('../app/models/savedpost');
         });
 
         app.post('/api/savedposts', isLoggedIn, function(req, res) {
+            var removedSavedPost = savedPostModel.remove({user: { _id: req.user._id }, post: req.body._id }, function (error, savedPost) {
+                var response = {};
+                if (!error) {
+                    response.status = 'OK';
+                    res.json(200,response);
+                }
+            }); // => Mongoose Callback
+
+            // Don't continue if removedsavedPost
+
             var savedPost = new savedPostModel();
-            comment.user = req.user._id;
-            comment.post = req.body.post_id;
-            savedpost.save(function (error, savedpost) {
+            savedPost.user = req.user._id;
+            savedPost.post = req.body._id;
+            savedPost.save(function (error, savedpost) {
                 var response = {};
                 if (!error) {
                     response.status = 'OK';
@@ -199,6 +210,20 @@ var savedPostModel = require('../app/models/savedpost');
                     res.json(200,response);
                 }
             });
+        });
+
+        app.post('/api/savedposts/delete', isLoggedIn, function(req, res) {
+            var removedSavedPost = savedPostModel.remove({user: { _id: req.user._id }, post: req.body._id }, function (error, savedPost) {
+                var response = {};
+                if (!error) {
+                    response.status = 'OK';
+                    res.json(200,response);
+                } else {
+                    response.status = 'ERROR';
+                    response.message = 'Something Went Wrong';
+                    res.json(200,response);
+                }
+            }); // => Mongoose Callback
         });
 };
 
