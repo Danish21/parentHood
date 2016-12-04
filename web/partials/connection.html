@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-sm-10 col-sm-offset-1">
-  	<div class="jumbotron page-header-container text-center" ng-class="{'pink': (post.category === 'Ask the NeighborHood'), 'purple': (post.category === 'Events'), 'blue': (post.category === 'Buy/Sell'), 'yellow': (post.category === 'Recommendations'), 'red': (post.category === 'Alerts')}">
+    <div class="jumbotron page-header-container text-center" ng-class="{'pink': (post.category === 'Ask the NeighborHood'), 'purple': (post.category === 'Events'), 'blue': (post.category === 'Buy/Sell'), 'yellow': (post.category === 'Recommendations'), 'red': (post.category === 'Alerts')}">
       <a class="back-link hand no-style" href="#/Ask%20the%20NeighborHood">Back</a>
       <h1 class="page-header">{{post.category}}</h1>
       <p class="page-header">Make posts to connect neighbor-to-neighbor</p>
-  	</div>
+    </div>
   </div>
 </div>
 <div class="row">
@@ -17,7 +17,7 @@
           <span class="post-comments col-sm-6">{{ postService.getComments(post._id).length }} Comments</span>
           <span class="post-time col-sm-2 text-right"><time am-time-ago="post.date"></time></span>
           <span class="post-fav col-sm-1 text-right" ng-click="savePost(post)" ng-hide="post.saved">☆</span>
-            <span class="post-fav col-sm-1 text-right" ng-click="unsavePost(post)" ng-show="post.saved">★</span>
+          <span class="post-fav col-sm-1 text-right" ng-click="unsavePost(post)" ng-show="post.saved">★</span>
         </div>
       </div>
     </div>
@@ -37,9 +37,9 @@
           <form>
             <div class="form-group">
               <img class="comment-pic grey-circle-sm" src="../images/grey-circle.png" />
-      		    <textarea placeholder="Add Comment" class="form-control new-comment-text" id="text" ng-model="newComment.text" />
+              <textarea placeholder="Add Comment" class="form-control new-comment-text" id="text" ng-model="newComment.text" />
               <button class="btn btn-primary" type="submit" ng-click="createNewComment()">Submit</button>
-        		</div>
+            </div>
           </form>
         </li>
       </ul>
