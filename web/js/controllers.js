@@ -84,7 +84,7 @@ angular.module('appname.controllers', [])
 		$scope.categoryService = categoryService;
 		$scope.init();
 	}])
-	.controller('eventsCtrl', ['$scope', 'profileService', '$rootScope', '$uibModal', 'categoryService', function ($scope, profileService, $rootScope, $uibModal, categoryService) {
+	.controller('eventsCtrl', ['$scope', 'profileService', '$rootScope', '$uibModal', 'categoryService',, '$location', function ($scope, profileService, $rootScope, $uibModal, categoryService, $location) {
 		$scope.init = function () {
 			$scope.calendarView = 'month';
 			$scope.viewDate = new Date();
@@ -94,8 +94,13 @@ angular.module('appname.controllers', [])
 		};
 		$scope.setStartAndEndtime = function (event) {
 			event.startsAt = new Date(event.date);
+			event.startsAt.setDate(event.startsAt.getDate() + 2);
 			return event;
 		};
+
+		$scope.eventClicked = function (event) {
+			$location.path('/post/' + event._id);
+		}
 
 		$scope.categoryService = categoryService;
 		$scope.init();
@@ -169,7 +174,6 @@ angular.module('appname.controllers', [])
 			return postService.unsavePost(post).then(() => $scope.init())
 		}
 
-		// TODO: Update
 		$scope.open = function (post) {
 			$location.path('/post/' + post._id);
 		};
