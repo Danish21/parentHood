@@ -44,11 +44,21 @@ angular.module('appname.controllers', [])
 		}
 
 	}])
-	.controller('homeCtrl', ['$scope', 'profileService', '$rootScope', '$uibModal', 'categoryService', function ($scope, profileService, $rootScope, $uibModal, categoryService) {
+	.controller('homeCtrl', ['$scope', 'profileService', '$rootScope', '$uibModal', 'categoryService', 'savedPostsService', 'postService', function ($scope, profileService, $rootScope, $uibModal, categoryService, savedPostsService, postService) {
 		$scope.init = function () {
 			categoryService.refreshData().then(function (result) {
 			});
+			savedPostsService.refreshData().then(function (result) {
+			});
 		};
+
+		$scope.savePost = function (post) {
+			return postService.savePost(post).then(() => $scope.init())
+		}
+
+		$scope.unsavePost = function (post) {
+			return postService.unsavePost(post).then(() => $scope.init())
+		}
 
 		$scope.openUserInfo = function (user) {
 			var modalInstance = $uibModal.open({
@@ -80,6 +90,10 @@ angular.module('appname.controllers', [])
 				console.log('dismissed');
 			});
 		};
+
+		$scope.getPosts = function (category) {
+			return categoryService.getCategories()[category].map(post => Object.assign(post, { saved: savedPostsService.isSaved(post) }))
+		}
 
 		$scope.categoryService = categoryService;
 		$scope.init();

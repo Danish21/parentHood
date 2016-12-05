@@ -1,5 +1,5 @@
 <header class="image-bg-fluid-height">
-		<h1 class="white fade">Clarendon Hills</h1>
+	<h1 class="white fade">Clarendon Hills</h1>
 </header>
 
 <div class="row">
@@ -7,10 +7,10 @@
 		<div class="row">
 			<div class="col-sm-11">
 				<div class="alert alert-danger alert-heading" role="alert">
-			  		<a href="#" class="alert-link white">Alert!</a>
-			  		<a class="alert-link white hand alert-text" href="/#/post/{{categoryService.mostRecentAlert()._id}}">{{categoryService.mostRecentAlert().title}} </a>
-				  	<div class="pull-right">
-				  		<span class="badge alert-time"><time am-time-ago="categoryService.mostRecentAlert().date"></time></span>
+					<a href="#" class="alert-link white">Alert!</a>
+					<a class="alert-link white hand alert-text" href="/#/post/{{categoryService.mostRecentAlert()._id}}">{{categoryService.mostRecentAlert().title}} </a>
+					<div class="pull-right">
+						<span class="badge alert-time"><time am-time-ago="categoryService.mostRecentAlert().date"></time></span>
 						<i class="fa fa-plus-circle fa-lg white hand" aria-hidden="true" ng-click="open('Alerts')">
 							Add Alert
 						</i>
@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-sm-5">
 				<div class="panel-success panel panel-default">
-				  <!-- Default panel contents -->
+					<!-- Default panel contents -->
 					<div class="panel-heading events-panel-heading">
 						<h3 class="panel-title pull-left hand"><a href="/#/events">Events</a></h3>
 						<div class="pull-right">
@@ -29,40 +29,48 @@
 								Add Post
 							</i>
 						</div>
-        				<div class="clearfix"></div>
+						<div class="clearfix"></div>
 					</div>
 					<div class="panel-body">
-					  	<ul class="list-group">
-						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Events'] | orderBy:'-' | limitTo: 3">
-						   		<span class="badge"><time am-time-ago="post.date"></time></span>
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="post in getPosts('Events') | orderBy:'-' | limitTo: 3">
+								<span class="badge"><time am-time-ago="post.date"></time></span>
 
-						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
-						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
-						   	</li>
+								<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
+								<h6>
+									<span><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></span>
+									<span class="post-fav pull-right text-right" ng-click="savePost(post)" ng-hide="post.saved">☆</span>
+									<span class="post-fav pull-right text-right" ng-click="unsavePost(post)" ng-show="post.saved">★</span>
+								</h6>
+							</li>
 						</ul>
 					</div>
-					  <!-- List group -->
+					<!-- List group -->
 				</div>
 			</div>
 			<div class="col-sm-5 col-sm-offset-1">
 				<div class="panel-info panel panel-default">
-				  <!-- Default panel contents -->
+					<!-- Default panel contents -->
 					<div class="panel-heading buysell-panel-heading">
 						<h3 class="panel-title pull-left hand">Buy/Sell</h3>
 						<div class="pull-right">
-							 <i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Buy/Sell')">
+							<i class="fa fa-plus-circle fa-lg fa-panel" aria-hidden="true" ng-click="open('Buy/Sell')">
 							 	Add Post
 							 </i>
 						</div>
-        				<div class="clearfix"></div>
+						<div class="clearfix"></div>
 					</div>
 					<div class="panel-body">
-					  	<ul class="list-group">
-						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Buy/Sell'] | orderBy:'-' | limitTo: 3">
-						   		<span class="badge"><time am-time-ago="post.date"></time></span>
-						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
-						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
-						   	</li>
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="post in getPosts('Buy/Sell') | orderBy:'-' | limitTo: 3">
+								<span class="badge"><time am-time-ago="post.date"></time></span>
+								<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
+								<h6>
+									<span><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></span>
+									<span class="post-fav pull-right text-right" ng-click="savePost(post)" ng-hide="post.saved">☆</span>
+									<span class="post-fav pull-right text-right" ng-click="unsavePost(post)" ng-show="post.saved">★</span>
+								</h6>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -71,7 +79,7 @@
 		<div class="row">
 			<div class="col-sm-5">
 				<div class="panel-warning panel panel-default">
-				  <!-- Default panel contents -->
+					<!-- Default panel contents -->
 					<div class="panel-heading recommendations-panel-heading">
 						<h3 class="panel-title pull-left hand">The Local Pages</h3>
 						<div class="pull-right">
@@ -79,16 +87,20 @@
 								Add Post
 							</i>
 						</div>
-        				<div class="clearfix"></div>
+						<div class="clearfix"></div>
 					</div>
 					<div class="panel-body">
-					  	<!-- List group -->
+						<!-- List group -->
 						<ul class="list-group">
-						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['The Local Pages'] | orderBy:'-' | limitTo: 3">
-						   		<span class="badge"><time am-time-ago="post.date"></time></span>
-						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
-						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
-						   	</li>
+							<li class="list-group-item" ng-repeat="post in getPosts('The Local Pages') | orderBy:'-' | limitTo: 3">
+								<span class="badge"><time am-time-ago="post.date"></time></span>
+								<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
+								<h6>
+									<span><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></span>
+									<span class="post-fav pull-right text-right" ng-click="savePost(post)" ng-hide="post.saved">☆</span>
+									<span class="post-fav pull-right text-right" ng-click="unsavePost(post)" ng-show="post.saved">★</span>
+								</h6>
+							</li>
 						</ul>
 					</div>
 
@@ -96,7 +108,7 @@
 			</div>
 			<div class="col-sm-5 col-sm-offset-1">
 				<div class="panel-danger panel panel-default">
-				  <!-- Default panel contents -->
+					<!-- Default panel contents -->
 					<div class="panel-heading inquiries-panel-heading">
 						<h3 class="panel-title pull-left hand"><a href="/#/Ask the NeighborHood">Ask the NeighborHood</a></h3>
 						<div class="pull-right">
@@ -104,16 +116,20 @@
 								Add Post
 							</i>
 						</div>
-        				<div class="clearfix"></div>
+						<div class="clearfix"></div>
 					</div>
 					<div class="panel-body">
-					  	<!-- List group -->
+						<!-- List group -->
 						<ul class="list-group">
-						   	<li class="list-group-item" ng-repeat="post in categoryService.getCategories()['Ask the NeighborHood'] | orderBy:'-' | limitTo: 3">
-						   		<span class="badge"><time am-time-ago="post.date"></time></span>
-						   		<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
-						   		<h6><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></h6>
-						   	</li>
+							<li class="list-group-item" ng-repeat="post in getPosts('Ask the NeighborHood') | orderBy:'-' | limitTo: 3">
+								<span class="badge"><time am-time-ago="post.date"></time></span>
+								<b><a class="no-style" href="/#/post/{{post._id}}">{{post.title}}</a></b>
+								<h6>
+									<span><a class="hand" ng-click="openUserInfo(post.user)">{{post.user.firstName}} {{post.user.lastName}}</a></span>
+									<span class="post-fav pull-right text-right" ng-click="savePost(post)" ng-hide="post.saved">☆</span>
+									<span class="post-fav pull-right text-right" ng-click="unsavePost(post)" ng-show="post.saved">★</span>
+								</h6>
+							</li>
 						</ul>
 					</div>
 
