@@ -158,7 +158,7 @@ angular.module('appname.controllers', [])
 		$scope.postService = postService;
 		$scope.init();
 	}])
-	.controller('savedPostsCtrl', ['$scope', '$routeParams', '$rootScope', '$uibModal', 'postService', 'savedPostsService', function ($scope, $routeParams, $rootScope, $uibModal, postService, savedPostsService) {
+	.controller('savedPostsCtrl', ['$scope', '$routeParams', '$rootScope', '$uibModal', 'postService', 'savedPostsService', '$location', function ($scope, $routeParams, $rootScope, $uibModal, postService, savedPostsService, $location) {
 		$scope.init = function () {
 			savedPostsService.refreshData().then(function (result) {
 				$scope.savedPosts = result;
@@ -170,21 +170,8 @@ angular.module('appname.controllers', [])
 		}
 
 		// TODO: Update
-		$scope.open = function (type) {
-			var modalInstance = $uibModal.open({
-				templateUrl: './partials/new-post.html',
-				controller: 'newPostCtrl',
-				resolve: {
-					postType: function () {
-						return type;
-					}
-				}
-			}).result.then(function (newPost) {
-				console.log('opened post');
-			}, function () {
-				console.log('dismissed');
-			});
-
+		$scope.open = function (post) {
+			$location.path('/post/' + post._id);
 		};
 
 		$scope.savedPostsService = savedPostsService;
