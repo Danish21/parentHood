@@ -84,7 +84,7 @@ angular.module('appname.controllers', [])
 		$scope.categoryService = categoryService;
 		$scope.init();
 	}])
-	.controller('eventsCtrl', ['$scope', 'profileService', '$rootScope', '$uibModal', 'categoryService',, '$location', function ($scope, profileService, $rootScope, $uibModal, categoryService, $location) {
+	.controller('eventsCtrl', ['$scope', 'profileService', '$rootScope', '$uibModal', 'categoryService', '$location', function ($scope, profileService, $rootScope, $uibModal, categoryService, $location) {
 		$scope.init = function () {
 			$scope.calendarView = 'month';
 			$scope.viewDate = new Date();
