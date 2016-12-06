@@ -99,10 +99,13 @@ module.exports = function (app, passport) {
 
     app.post('/api/posts', isLoggedIn, function (req, res) {
         var post = new postModel();
+        console.log(req.body);
         post.title = req.body.title;
         post.message = req.body.message;
         post.user = req.body.user_id;
         post.category = req.body.category;
+        post.startsAt = req.body.startsAt;
+        post.endsAt = req.body.endsAt;
         post.save(function (error, post) {
             var response = {};
             if (!error) {

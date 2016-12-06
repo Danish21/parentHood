@@ -17,6 +17,63 @@
 			<label for="meesage_text">Message</label>
 		    <textarea class="form-control" id="meesage_text" rows="2" ng-model="post.message"></textarea>
 	  	</div>
+	  	<div>
+	  		<label for="">Start time (if applicable)</label>
+	  		<p class="input-group" style="max-width: 250px">
+		  		<input
+	              type="text"
+	              class="form-control"
+	              readonly
+	              uib-datepicker-popup="dd MMMM yyyy"
+	              ng-model="post.startsAt"
+	              is-open="startIsOpen"
+	              close-text="Close">
+		          <span class="input-group-btn">
+			            <button
+			                type="button"
+			                class="btn btn-default"
+			                ng-click="toggleEventStart()">
+			                <i class="glyphicon glyphicon-calendar"></i>
+			            </button>
+			      	</span>
+		        	<div
+			            uib-timepicker
+			            ng-model="post.startsAt"
+			            hour-step="1"
+			            minute-step="15"
+			            show-meridian="true">
+	          		</div>
+	        </p>
+	  	</div>
+	  	<div>
+	  		<label for="">End time (if applicable)</label>
+	  		<p class="input-group" style="max-width: 250px">
+		  		<input
+	              type="text"
+	              class="form-control"
+	              readonly
+	              uib-datepicker-popup="dd MMMM yyyy"
+	              ng-model="post.endsAt"
+	              minDate="post.startsAt"
+	              is-open="endIsOpen"
+	              close-text="Close">
+		          <span class="input-group-btn">
+			            <button
+			                type="button"
+			                class="btn btn-default"
+			                ng-click="toggleEventEnd()">
+			                <i class="glyphicon glyphicon-calendar"></i>
+			            </button>
+			      	</span>
+		        	<div
+			            uib-timepicker
+			            ng-model="post.endsAt"
+			            hour-step="1"
+			            minute-step="15"
+			            show-meridian="true">
+	          		</div>
+	        </p>
+	  	</div>
 	</form>
 </div>
 <div class="modal-footer">

@@ -8,6 +8,8 @@ var postSchema = mongoose.Schema({
 	message: String,
 	title: String,
 	user: {type:  mongoose.Schema.ObjectId, ref: 'User'},
+	startsAt: {type: Date},
+	endsAt: {type: Date},
 });
 
 // create the model for users and expose it to our app

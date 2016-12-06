@@ -100,6 +100,7 @@ angular.module('appname.services', [])
 			},
 			addPost: function (post) {
 				var url = "/api/posts";
+				console.log(post);
 				return ulhttp.post(url, post).then(function (result) {
 					result = ulhttp.handleError(result);
 					return service.refreshData();

@@ -106,15 +106,39 @@ angular.module('appname.controllers', [])
 				$scope.events = categoryService.getCategories()['Events'].map($scope.setStartAndEndtime);
 			});
 		};
-		$scope.setStartAndEndtime = function (event) {
-			event.startsAt = new Date(event.date);
-			event.startsAt.setDate(event.startsAt.getDate() + 2);
+		$scope.setStartAndEndtime = function (event, index) {
+			console.log(event);
+			if(!event.startsAt) {
+				event.startsAt = new Date(event.date);
+				event.startsAt.setDate(event.startsAt.getDate() + index);
+			} else {
+				event.startsAt = new Date(event.startsAt);
+				event.endsAt = new Date(event.endsAt);
+			}
 			return event;
 		};
 
 		$scope.eventClicked = function (event) {
 			$location.path('/post/' + event._id);
 		}
+
+		$scope.open = function (type) {
+			var modalInstance = $uibModal.open({
+				templateUrl: './partials/new-post.html',
+				controller: 'newPostCtrl',
+				resolve: {
+					postType: function () {
+						return type;
+					}
+				}
+			}).result.then(function (newPost) {
+				categoryService.refreshData().then(function (result) {
+					$scope.events = categoryService.getCategories()['Events'].map($scope.setStartAndEndtime);
+				});
+			}, function () {
+				console.log('dismissed');
+			});
+		};
 
 		$scope.categoryService = categoryService;
 		$scope.init();
@@ -205,9 +229,18 @@ angular.module('appname.controllers', [])
 		};
 
 		$scope.ok = function () {
+			console.log($scope.post);
 			categoryService.addPost($scope.post).then(function (result) {
 				$uibModalInstance.close('good');
 			});
+		};
+
+		$scope.toggleEventStart = function() {
+			$scope.startIsOpen = !$scope.startIsOpen;
+		};
+
+		$scope.toggleEventEnd = function() {
+			$scope.endIsOpen = !$scope.endIsOpen;
 		};
 
 		$scope.cancel = function () {
