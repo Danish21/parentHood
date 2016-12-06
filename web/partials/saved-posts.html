@@ -9,7 +9,7 @@
 			<form class="form-horizontal" role="form">
 				<div ng-repeat="post in savedPosts">
 					<div class="form-group">
-						<label class="col-sm-4 control-label pull-left saved-post hand" ng-click="open(post.post)" ng-class="{'pink': (post.post.category === 'Ask the NeighborHood'), 'purple': (post.post.category === 'Events'), 'blue': (post.post.category === 'Buy/Sell'), 'yellow': (post.post.category === 'Recommendations'), 'red': (post.post.category === 'Alerts')}">{{post.post.title}}</label>
+						<label class="col-sm-4 control-label pull-left saved-post hand" ng-click="open(post.post)" ng-class="{'pink': (post.post.category === 'Ask the NeighborHood'), 'purple': (post.post.category === 'Events'), 'blue': (post.post.category === 'Buy/Sell'), 'yellow': (post.post.category === 'The Local Pages'), 'red': (post.post.category === 'Alerts')}">{{post.post.title}}</label>
 						<div class="col-sm-2 hand delete-saved-post" ng-click="unsavePost(post.post)"><span>×</span></div>
 					</div>
 				</div>

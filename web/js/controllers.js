@@ -130,10 +130,6 @@ angular.module('appname.controllers', [])
 						post_id: $scope.post._id,
 						user_id: $rootScope.currentUser._id
 					}
-					$scope.createNewComment = function () {
-						postService.addComment($scope.newComment);
-						$scope.newComment.text = "";
-					}
 				}
 			});
 			postService.refreshData().then(function (result) {
@@ -144,6 +140,12 @@ angular.module('appname.controllers', [])
 					$scope.post.saved = savedPostsService.isSaved($scope.post);
 			});
 		};
+
+		$scope.createNewComment = function () {
+			postService.addComment($scope.newComment).then(function (result) {
+				$scope.newComment.text = "";
+			});
+		}
 
 		$scope.savePost = function (post) {
 			return postService.savePost(post).then(() => $scope.init())
